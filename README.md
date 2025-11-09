@@ -38,4 +38,4 @@ coding!
 - Anthony Tibamwenda: [@AskTiba](https://github.com/AskTiba) / [LinkedIn](https://www.linkedin.com/in/tibamwenda-anthony-64144820b/)
 - Adewale Agboke: [GitHub](https://github.com/Adewal246) / [LinkedIn](https://www.linkedin.com/in/adewaleagboke/)
 
-- Teammate name #n: [GitHub](https://github.com/ghaccountname) / [LinkedIn](https://linkedin.com/in/liaccountname)
+- Tunde Ademola Kujore: [GitHub](https://github.com/Dhemmyhardy) / [LinkedIn](https://www.linkedin.com/in/tundeademolakujore/)
