@@ -39,3 +39,5 @@ coding!
 - Adewale Agboke: [GitHub](https://github.com/Adewal246) / [LinkedIn](https://www.linkedin.com/in/adewaleagboke/)
 
 - Tunde Ademola Kujore: [GitHub](https://github.com/Dhemmyhardy) / [LinkedIn](https://www.linkedin.com/in/tundeademolakujore/)
+
+- Rachel Tipton: [GitHub](https://github.com/rachel-labri-tipton) / [LinkedIn](https://www.linkedin.com/in/rachel-labri-tipton/)
