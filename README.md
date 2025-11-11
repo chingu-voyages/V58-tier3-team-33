@@ -41,4 +41,8 @@ coding!
 - Tunde Ademola Kujore: [GitHub](https://github.com/Dhemmyhardy) / [LinkedIn](https://www.linkedin.com/in/tundeademolakujore/)
 
 - Rachel Tipton: [GitHub](https://github.com/rachel-labri-tipton) / [LinkedIn](https://www.linkedin.com/in/rachel-labri-tipton/)
+
+- Jannah Hardy: [LinkedIn](https://www.linkedin.com/in/jannah-hardy-b2369712b/)
+
 - asiill: [GitHub](https://github.com/asiill)
+
