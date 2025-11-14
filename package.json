@@ -8,7 +8,8 @@
   "workspaces": [ "apps/*"],
   "scripts": {
     "client:dev": "npm run dev --workspace=apps/client",
-    "client:build": "npm run build --workspace=apps/client"
+    "client:build": "npm run build --workspace=apps/client",
+    "server:dev": "npm run dev --workspace=apps/server"
   },
   "repository": {
     "type": "git",

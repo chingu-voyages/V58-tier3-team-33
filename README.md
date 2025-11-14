@@ -21,10 +21,14 @@ root/
 ├── package-lock.json
 ├── package.json
 └── apps/
-    └── client/
+    ├── client/
+    |   ├── package.json
+    │   └── src/
+    │       └── main.tsx
+    └── server/
         ├── package.json
         └── src/
-            └── main.tsx
+            └── server.js
 ```
 
 ## Dev Setup
@@ -36,11 +40,12 @@ root/
    npm ci
    ```
 
-2. spin up the dev server
+2. spin up client and server dev servers
 
    ```sh
    # from the root of the repo once again
    npm run client:dev
+   npm run server:dev
    ```
 
 ## Team Documents
