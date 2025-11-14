@@ -13,6 +13,36 @@ in your `readme` feel free to replace the text we've provided here.
 
 > Own it & Make it your Own!
 
+## Folder Structure
+
+```txt
+root/
+├── README.md
+├── package-lock.json
+├── package.json
+└── apps/
+    └── client/
+        ├── package.json
+        └── src/
+            └── main.tsx
+```
+
+## Dev Setup
+
+1. Install dependencies
+
+   ```sh
+   # from the root of the repo
+   npm ci
+   ```
+
+2. spin up the dev server
+
+   ```sh
+   # from the root of the repo once again
+   npm run client:dev
+   ```
+
 ## Team Documents
 
 You may find these helpful as you work together to organize your project.
