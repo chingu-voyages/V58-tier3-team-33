@@ -1,4 +1,4 @@
-# voyage-tasks
+# Worksy
 
 Your project's `readme` is as important to success as your code. For
 this reason you should put as much care into its creation and maintenance
@@ -45,4 +45,3 @@ coding!
 - Jannah Hardy: [LinkedIn](https://www.linkedin.com/in/jannah-hardy-b2369712b/)
 
 - asiill: [GitHub](https://github.com/asiill)
-
