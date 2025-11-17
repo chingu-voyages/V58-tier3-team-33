@@ -9,7 +9,11 @@
   "scripts": {
     "client:dev": "npm run dev --workspace=apps/client",
     "client:build": "npm run build --workspace=apps/client",
-    "server:dev": "npm run dev --workspace=apps/server"
+    "server:dev": "npm run dev --workspace=apps/server",
+    "server:build": "npm run build --workspace=apps/server"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3"
   },
   "repository": {
     "type": "git",

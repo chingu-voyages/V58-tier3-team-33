@@ -28,7 +28,7 @@ root/
     └── server/
         ├── package.json
         └── src/
-            └── server.js
+            └── server.ts
 ```
 
 ## Dev Setup
