@@ -16,7 +16,18 @@
     "prepare": "node ./scripts/setup-githooks.js"
   },
   "devDependencies": {
+    "lint-staged": "16.2.6",
     "typescript": "5.9.3"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ],
+    "*.ts": [
+      "eslint --fix",
+      "git add"
+    ]
   },
   "repository": {
     "type": "git",
