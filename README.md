@@ -1,4 +1,4 @@
-# voyage-tasks
+# Worksy
 
 Your project's `readme` is as important to success as your code. For
 this reason you should put as much care into its creation and maintenance
@@ -12,6 +12,53 @@ And before we go there's "one more thing"! Once you decide what to include
 in your `readme` feel free to replace the text we've provided here.
 
 > Own it & Make it your Own!
+
+## Dependencies
+
+To run the project locally, you will need:
+
+- [Node.js](https://nodejs.org/en)
+- [PostgreSQL](https://www.postgresql.org)
+- [pgAdmin](https://www.pgadmin.org/) as a postgres GUI
+
+## Folder Structure
+
+```txt
+root/
+├── README.md
+├── package-lock.json
+├── package.json
+└── apps/
+    ├── client/
+    |   ├── package.json
+    │   └── src/
+    │       └── main.tsx
+    └── server/
+        ├── package.json
+        └── src/
+            └── server.ts
+```
+
+## Dev Setup
+
+1. Install dependencies
+
+   ```sh
+   # from the root of the repo
+   npm ci
+   ```
+
+2. [start the local database server](https://www.postgresql.org/docs/current/server-start.html). If this is your fist time:
+   - [add a new server](https://www.pgadmin.org/docs/pgadmin4/latest/user_interface.html) with default settings and `localhost` as hostname
+   - [create a database](https://www.pgadmin.org/docs/pgadmin4/latest/managing_cluster_objects.html) called `test` using the database dialog
+
+3. spin up client and server dev servers
+
+   ```sh
+   # from the root of the repo once again
+   npm run client:dev
+   npm run server:dev
+   ```
 
 ## Team Documents
 
@@ -45,4 +92,3 @@ coding!
 - Jannah Hardy: [LinkedIn](https://www.linkedin.com/in/jannah-hardy-b2369712b/)
 
 - asiill: [GitHub](https://github.com/asiill)
-

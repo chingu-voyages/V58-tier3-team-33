@@ -1,0 +1,25 @@
+{
+  "name": "@worksy/server",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "API server for worksy",
+  "engines": {
+    "node": ">= 18.0.0"
+  },
+  "scripts": {
+    "dev": "nodemon src/server.ts",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "express": "5.1.0",
+    "kysely": "0.28.8",
+    "pg": "8.16.3"
+  },
+  "devDependencies": {
+    "@types/express": "5.0.5",
+    "@types/pg": "8.15.6",
+    "nodemon": "3.1.11",
+    "ts-node": "10.9.2"
+  }
+}

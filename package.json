@@ -1,0 +1,26 @@
+{
+  "name": "worksy",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "a monorepo for developing a gigs marketplace.",
+  "license": "AGPL-3.0-or-later",
+  "workspaces": [ "apps/*"],
+  "scripts": {
+    "client:dev": "npm run dev --workspace=apps/client",
+    "client:build": "npm run build --workspace=apps/client",
+    "server:dev": "npm run dev --workspace=apps/server",
+    "server:build": "npm run build --workspace=apps/server"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chingu-voyages/V58-tier3-team-33.git"
+  },
+  "homepage": "https://github.com/chingu-voyages/v58-tier3-team-33#readme",
+  "contributors": [
+    "See contributors at https://github.com/chingu-voyages/v58-tier3-team-33/graphs/contributors"
+  ]
+}
