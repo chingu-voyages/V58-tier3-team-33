@@ -13,6 +13,14 @@ in your `readme` feel free to replace the text we've provided here.
 
 > Own it & Make it your Own!
 
+## Dependencies
+
+To run the project locally, you will need:
+
+- [Node.js](https://nodejs.org/en)
+- [PostgreSQL](https://www.postgresql.org)
+- [pgAdmin](https://www.pgadmin.org/) as a postgres GUI
+
 ## Folder Structure
 
 ```txt
@@ -40,7 +48,11 @@ root/
    npm ci
    ```
 
-2. spin up client and server dev servers
+2. [start the local database server](https://www.postgresql.org/docs/current/server-start.html). If this is your fist time:
+   - [add a new server](https://www.pgadmin.org/docs/pgadmin4/latest/user_interface.html) with default settings and `localhost` as hostname
+   - [create a database](https://www.pgadmin.org/docs/pgadmin4/latest/managing_cluster_objects.html) called `test` using the database dialog
+
+3. spin up client and server dev servers
 
    ```sh
    # from the root of the repo once again
