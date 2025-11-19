@@ -1,7 +1,8 @@
 import app from './app.js'
 import { pingDb } from './database/db.js';
+import { ENV } from './config/env.js';
 
-const port = 3000;
+const port = ENV.server.PORT;
 
 app.listen(port, async () => {
     console.info(`> Listening to port ${port}`)

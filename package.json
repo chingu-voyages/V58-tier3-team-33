@@ -5,7 +5,9 @@
   "type": "module",
   "description": "a monorepo for developing a gigs marketplace.",
   "license": "AGPL-3.0-or-later",
-  "workspaces": [ "apps/*"],
+  "workspaces": [
+    "apps/*"
+  ],
   "scripts": {
     "client:dev": "npm run dev --workspace=apps/client",
     "client:build": "npm run build --workspace=apps/client",
