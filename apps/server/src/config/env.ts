@@ -7,5 +7,8 @@ export const ENV = {
     },
     server: {
         PORT: process.env.PORT
+    },
+    cors: {
+        CORS_ORIGIN: process.env.CORS_ORIGIN
     }
 };
