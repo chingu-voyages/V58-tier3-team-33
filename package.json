@@ -14,14 +14,21 @@
     "client:dev": "npm run dev --workspace=apps/client",
     "client:build": "npm run build --workspace=apps/client",
     "client:format": "npm run format --workspace=apps/client",
+    "client:lint": "npm run lint --workspace=apps/client",
     "server:dev": "npm run dev --workspace=apps/server",
     "server:build": "npm run build --workspace=apps/server",
-    "server:format": "npm run format --workspace=apps/server"
+    "server:format": "npm run format --workspace=apps/server",
+    "server:lint": "npm run lint --workspace=apps/server"
   },
   "devDependencies": {
+    "@eslint/js": "9.39.1",
+    "eslint": "9.39.1",
+    "eslint-config-prettier": "10.1.8",
+    "globals": "16.5.0",
     "lint-staged": "16.2.6",
     "prettier": "3.6.2",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.47.0"
   },
   "repository": {
     "type": "git",
