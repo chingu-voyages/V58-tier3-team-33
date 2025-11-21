@@ -9,24 +9,19 @@
     "apps/*"
   ],
   "scripts": {
+    "prepare": "node ./scripts/setup-githooks.js",
     "client:dev": "npm run dev --workspace=apps/client",
     "client:build": "npm run build --workspace=apps/client",
     "server:dev": "npm run dev --workspace=apps/server",
-    "server:build": "npm run build --workspace=apps/server",
-    "prepare": "node ./scripts/setup-githooks.js"
+    "server:build": "npm run build --workspace=apps/server"
   },
   "devDependencies": {
     "lint-staged": "16.2.6",
     "typescript": "5.9.3"
   },
   "lint-staged": {
-    "*.js": [
-      "eslint --fix",
-      "git add"
-    ],
-    "*.ts": [
-      "eslint --fix",
-      "git add"
+    "*.{jsx,tsx,js,ts,mjs,mts,cjs,cts}": [
+      "eslint --fix"
     ]
   },
   "repository": {
