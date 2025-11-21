@@ -10,19 +10,18 @@
   ],
   "scripts": {
     "prepare": "node ./scripts/setup-githooks.js",
+    "all:format": "prettier . --write",
     "client:dev": "npm run dev --workspace=apps/client",
     "client:build": "npm run build --workspace=apps/client",
+    "client:format": "npm run format --workspace=apps/client",
     "server:dev": "npm run dev --workspace=apps/server",
-    "server:build": "npm run build --workspace=apps/server"
+    "server:build": "npm run build --workspace=apps/server",
+    "server:format": "npm run format --workspace=apps/server"
   },
   "devDependencies": {
     "lint-staged": "16.2.6",
+    "prettier": "3.6.2",
     "typescript": "5.9.3"
-  },
-  "lint-staged": {
-    "*.{jsx,tsx,js,ts,mjs,mts,cjs,cts}": [
-      "eslint --fix"
-    ]
   },
   "repository": {
     "type": "git",
