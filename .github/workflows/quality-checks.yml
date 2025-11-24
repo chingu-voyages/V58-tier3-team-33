@@ -1,0 +1,38 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+
+name: Quality Checks
+
+on:
+  pull_request:
+    types: [opened, ready_for_review, reopened, synchronize]
+    branches:
+      - dev
+      - main
+
+jobs:
+  ql_check:
+    name: running quality checks
+    runs-on: ubuntu-slim
+    env:
+      CI: true
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.head_ref }}
+      cancel-in-progress: true
+    steps:
+      - name: checkout the repo
+        uses: actions/checkout@v6
+
+      - name: install node
+        uses: actions/checkout@v6
+        with:
+          node_version: 20.19
+          cache: "npm"
+
+      - name: install project dependencies
+        run: npm ci
+
+      - name: check formatting
+        run: npm run ci:format
+
+      - name: check linting
+        run: npm run ci:lint
