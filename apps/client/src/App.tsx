@@ -4,7 +4,7 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 import { ENV } from "./config/env";
 
-function App() {
+export default function App() {
   const [count, setCount] = useState(0);
 
   const [status, setStatus] = useState("");
@@ -18,14 +18,26 @@ function App() {
         if (!response.ok) {
           throw new Error(`Response status: ${response.status}`);
         }
-        const data = await response.json();
+
+        /*
+        we have no guarantees as to the shape of fetch's body
+        so we need to validate it against the structure we expect
+        TODO: schema based validation is more readable, use zod later
+        */
+        const data = (await response.json()) as unknown;
+        if (!isValidHealthBody(data)) {
+          throw new Error("unexpected health body structure", {
+            cause: { fetchBody: data },
+          });
+        }
+
         setStatus(data.status);
       } catch (error) {
         console.error("There was an error", error);
       }
     };
 
-    APIHealthCheck();
+    void APIHealthCheck();
   }, []);
 
   return (
@@ -58,4 +70,19 @@ function App() {
   );
 }
 
-export default App;
+interface Health {
+  status: string;
+  db: string;
+}
+
+function isValidHealthBody(fetchJson: unknown): fetchJson is Health {
+  if (
+    typeof fetchJson != "object" ||
+    fetchJson == null ||
+    Array.isArray(fetchJson)
+  ) {
+    return false;
+  }
+  const jsonObj = fetchJson as Record<string, unknown>;
+  return typeof jsonObj.status == "string" && typeof jsonObj.db == "string";
+}
