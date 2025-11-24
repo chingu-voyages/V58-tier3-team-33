@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import { ENV } from './config/env';
+import { useEffect, useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
+import { ENV } from "./config/env";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   const [status, setStatus] = useState("");
 
@@ -30,7 +30,7 @@ function App() {
 
   return (
     <>
-      <div className='flex justify-around'>
+      <div className="flex justify-around">
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
@@ -55,7 +55,7 @@ function App() {
         <p>Status: {status}</p>
       </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -1,1 +1,1 @@
-console.log('Hello ' + process.env.HELLO);
+console.log("Hello " + process.env.HELLO);

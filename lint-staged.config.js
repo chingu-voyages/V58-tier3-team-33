@@ -20,7 +20,7 @@ export default {
         ),
     );
     if (remaining.length == 0) {
-      return null;
+      return "echo 'no files to format that slipped from the other tasks'";
     }
 
     return `prettier --write --ignore-unknown ${remaining.join(" ")}`;
