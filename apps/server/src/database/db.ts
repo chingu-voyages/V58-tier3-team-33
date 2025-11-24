@@ -1,5 +1,11 @@
 import { Pool } from 'pg'
 import { Kysely, PostgresDialect, sql } from "kysely";
+import { ENV } from '../config/env.js';
+
+const database= ENV.database.DB_NAME;
+const host= ENV.database.DB_HOST;
+const user= ENV.database.DB_USER;
+const password= ENV.database.DB_PASSWORD;
 
 let db: Kysely<{}>
 
@@ -8,9 +14,10 @@ export function makeDb<T extends Record<string, Record<string, any>> = {}>() {
         try {
             console.info('> establishing db connection...')
             const pool = new Pool({
-                database: 'test',
-                host: 'localhost',
-                user: 'postgres',
+                database,
+                host,
+                user,
+                password,
                 port: 5432,
                 max: 10,
             })
