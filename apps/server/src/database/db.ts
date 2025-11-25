@@ -1,11 +1,11 @@
 import { Pool } from "pg";
 import { Kysely, PostgresDialect, sql } from "kysely";
-import { ENV } from '../config/env.js';
+import { ENV } from "../config/env.js";
 
-const database= ENV.database.DB_NAME;
-const host= ENV.database.DB_HOST;
-const user= ENV.database.DB_USER;
-const password= ENV.database.DB_PASSWORD;
+const database = ENV.database.DB_NAME;
+const host = ENV.database.DB_HOST;
+const user = ENV.database.DB_USER;
+const password = ENV.database.DB_PASSWORD;
 
 let db: Kysely<object>;
 

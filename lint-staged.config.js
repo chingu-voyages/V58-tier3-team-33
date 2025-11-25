@@ -20,7 +20,14 @@ export default {
         ),
     );
     if (remaining.length == 0) {
-      return null;
+      /*
+      idk why, but when this task outputs nothing (""), I get the error below
+      after I get 2 lines of [FAILED] [FAILED] in the middle of lint-staged's run log.
+      ✖  failed without output (FAILED).
+      ✖ eslint --max-warnings=0 --debug -c apps/client/eslint.config.js failed to spawn
+      a cursory search gave nothing. not worth digging more unless it happens again
+      */
+      return "echo 'no files to format that slipped from the other tasks'";
     }
 
     return `prettier --write --ignore-unknown ${remaining.join(" ")}`;
