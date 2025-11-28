@@ -2,7 +2,7 @@ import { useState } from "react";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 
-const Auth = () => {
+const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(false);
 
   const toggleForm = () => {
@@ -10,9 +10,36 @@ const Auth = () => {
   };
 
   return (
-    <div>
-      <div className="mt-4">{isLogin ? <LoginForm /> : <RegisterForm />}</div>
-      <div className="mt-4 text-center text-lg">
+    <div className="w-full">
+      <div className="space-y-2 mb-4 md:mb-8 text-center md:text-left">
+        {isLogin ? (
+          <>
+            <h2 className="text-white font-bold text-xl md:text-4xl">
+              Welcome Back!
+            </h2>
+
+            <p className="text-gray-400 text-sm md:text-base">
+              Login to access your account.
+            </p>
+          </>
+        ) : (
+          <>
+            <h2 className="text-white font-bold text-xl md:text-4xl">
+              Join Worksy
+            </h2>
+
+            <p className="text-gray-400 text-sm md:text-base">
+              Create your account to get started
+            </p>
+          </>
+        )}
+      </div>
+
+      <div className="mt-4 w-full">
+        {isLogin ? <LoginForm /> : <RegisterForm />}
+      </div>
+
+      <div className="mt-4 text-center text-sm md:text-base">
         {isLogin ? (
           <p className="text-gray-400">
             Don't have an account?{" "}
@@ -39,4 +66,4 @@ const Auth = () => {
   );
 };
 
-export default Auth;
+export default AuthForm;

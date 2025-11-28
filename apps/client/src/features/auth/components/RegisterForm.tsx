@@ -28,7 +28,7 @@ const RegisterForm = () => {
   return (
     <form
       onSubmit={(...args) => void form.handleSubmit(onSubmit)(...args)}
-      className="space-y-5 text-lg"
+      className="space-y-4 md:space-y-5 text-base md:text-base"
     >
       <FieldGroup>
         <Controller
@@ -48,8 +48,8 @@ const RegisterForm = () => {
           )}
         />
 
-        <div className="border-[0.5px] border-gold/30 bg-gold/10 rounded-xl my-8">
-          <p className="text-gold p-4 text-base">
+        <div className="border-[0.5px] border-gold/30 bg-gold/10 rounded-xl my-4 md:my-8">
+          <p className="text-gold p-3 md:p-4 text-sm md:text-base">
             Want to be both? Switch modes anytime after sign up - just start
             with what's most important to you right now
           </p>
@@ -67,7 +67,7 @@ const RegisterForm = () => {
                 aria-invalid={fieldState.invalid}
                 type="text"
                 placeholder="Enter your full name"
-                className="w-full py-3 px-5 rounded bg-background text-white"
+                className="w-full py-2 px-3 md:py-3 md:px-5 rounded-lg bg-background text-white"
               />
               {fieldState.error && <FieldError errors={[fieldState.error]} />}
             </Field>
@@ -86,7 +86,7 @@ const RegisterForm = () => {
                 aria-invalid={fieldState.invalid}
                 type="email"
                 placeholder="you@example.com"
-                className="w-full py-3 px-5 rounded bg-background text-white"
+                className="w-full py-2 px-3 md:py-3 md:px-5 rounded-lg bg-background text-white"
               />
               {fieldState.error && <FieldError errors={[fieldState.error]} />}
             </Field>
@@ -105,7 +105,7 @@ const RegisterForm = () => {
                 aria-invalid={fieldState.invalid}
                 type="password"
                 placeholder="Create a strong password"
-                className="w-full py-3 px-5 rounded bg-background text-white"
+                className="w-full py-2 px-3 md:py-3 md:px-5 rounded-lg bg-background text-white"
               />
               {fieldState.error && <FieldError errors={[fieldState.error]} />}
             </Field>
@@ -117,7 +117,7 @@ const RegisterForm = () => {
           name="termsAgreement"
           render={({ field: { value, ...fieldProps }, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
-              <div className="flex items-center my-3 space-x-2 text-sm">
+              <div className="flex items-center my-2 md:my-3 space-x-2 text-xs md:text-sm">
                 <input
                   {...fieldProps}
                   id={fieldProps.name}
@@ -128,9 +128,13 @@ const RegisterForm = () => {
                 />
                 <FieldLabel htmlFor={fieldProps.name}>
                   I agree to the{" "}
-                  <span className="text-gold">
-                    Terms of Service and Privacy Policy
-                  </span>{" "}
+                  <a href="#" className="text-gold hover:underline">
+                    Terms of Service
+                  </a>{" "}
+                  and{" "}
+                  <a href="#" className="text-gold hover:underline">
+                    Privacy Policy
+                  </a>
                   .
                 </FieldLabel>
               </div>
@@ -140,7 +144,10 @@ const RegisterForm = () => {
         />
       </FieldGroup>
 
-      <button type="submit" className="w-full bg-gold text-black p-2 rounded">
+      <button
+        type="submit"
+        className="w-full bg-gold text-black p-2 rounded text-base md:text-base"
+      >
         Create Account
       </button>
     </form>

@@ -37,7 +37,7 @@ const SegmentedControl = ({
           />
           <label
             htmlFor={option.value}
-            className={`relative z-10 w-1/2 p-2 text-center rounded-md cursor-pointer font-semibold transition-colors duration-300 ${selected === option.value ? "text-black" : "text-gold"}`}
+            className={`relative z-10 flex-1 p-2 text-center rounded-md cursor-pointer font-semibold transition-colors duration-300 text-sm md:text-base ${selected === option.value ? "text-black" : "text-gold"}`}
           >
             {option.label}
           </label>
