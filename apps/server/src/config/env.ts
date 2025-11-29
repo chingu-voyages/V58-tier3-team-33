@@ -8,6 +8,9 @@ export const ENV = {
   server: {
     PORT: getEnvOrPanic("PORT"),
   },
+  auth: {
+    BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET,
+  },
 };
 
 // TODO: can replace with zod validation
