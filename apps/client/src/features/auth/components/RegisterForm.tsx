@@ -1,6 +1,7 @@
 import { AlertCircleIcon } from "lucide-react";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { authClient } from "../auth-client";
 import { registerSchema, type RegisterSchema } from "../schema";
 import SegmentedControl from "./SegmentedControl";
@@ -17,6 +18,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 export default function RegisterForm() {
   const [error, setError] = useState<string>("");
   const [isLoading, setLoading] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const form = useForm<RegisterSchema>({
     resolver: zodResolver(registerSchema),
@@ -41,6 +43,12 @@ export default function RegisterForm() {
           onRequest: () => {
             setLoading(true);
             setError("");
+          },
+          onSuccess: async () => {
+            setLoading(false);
+            if (data.userType === "client") {
+              await navigate("/client");
+            }
           },
           onError: (ctx) => {
             setError(ctx.error.message);
@@ -190,6 +198,7 @@ export default function RegisterForm() {
       <button
         type="submit"
         className="text-center w-full bg-gold text-black p-2 rounded text-base md:text-base"
+        // className='w-full bg-gold text-black p-2 rounded text-base md:text-base'
         disabled={isLoading}
       >
         {isLoading ? (
