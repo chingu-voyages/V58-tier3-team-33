@@ -1,12 +1,13 @@
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+
+import { loginSchema, type LoginSchema } from "../schema";
 import {
   Field,
   FieldError,
   FieldGroup,
   FieldLabel,
-} from "../../../components/ui/field";
-import { loginSchema, type LoginSchema } from "../schema";
+} from "../../../components/ui/Field";
 
 const LoginForm = () => {
   const form = useForm<LoginSchema>({

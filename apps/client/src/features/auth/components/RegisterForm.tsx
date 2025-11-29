@@ -5,7 +5,7 @@ import {
   FieldError,
   FieldGroup,
   FieldLabel,
-} from "../../../components/ui/field";
+} from "../../../components/ui/Field";
 import SegmentedControl from "./SegmentedControl";
 import { registerSchema, type RegisterSchema } from "../schema";
 

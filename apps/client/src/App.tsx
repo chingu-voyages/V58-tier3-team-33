@@ -1,7 +1,7 @@
-import LoginPage from "./features/auth/pages/LoginPage";
+import LandingPage from "./features/auth/pages/LandingPage";
 
 function App() {
-  return <LoginPage />;
+  return <LandingPage />;
 }
 
 export default App;

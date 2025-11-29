@@ -1,5 +1,3 @@
 node_modules/
 dist/
 .env
-docs/concurrent-server-setup.md
-docs/conflict-resolution-guide.md

@@ -1,6 +1,6 @@
 import AuthForm from "../components/AuthForm";
 
-function LoginPage() {
+function LandingPage() {
   return (
     <div className="">
       <nav className="flex p-4 border-b-[0.5px] border-amber-500/20">
@@ -32,4 +32,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default LandingPage;
