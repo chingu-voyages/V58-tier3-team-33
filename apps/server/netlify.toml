@@ -1,0 +1,15 @@
+[build]
+  base = "/"
+  command = "npm run server:build"
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF apps/server"
+  publish = "/apps/server/dist"
+
+[functions]
+  directory = "/apps/server/dist/netlify/functions"
+  node_bundler = "esbuild"
+
+[[redirects]]
+  force = true
+  from = "/api/*"
+  status = 200
+  to = "/.netlify/functions/api/:slug"

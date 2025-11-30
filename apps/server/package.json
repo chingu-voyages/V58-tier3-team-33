@@ -17,7 +17,8 @@
     "cors": "2.8.5",
     "express": "5.1.0",
     "kysely": "0.28.8",
-    "pg": "8.16.3"
+    "pg": "8.16.3",
+    "serverless-http": "4.0.0"
   },
   "devDependencies": {
     "@dotenvx/dotenvx": "1.51.1",
