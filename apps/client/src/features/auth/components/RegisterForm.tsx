@@ -46,9 +46,7 @@ export default function RegisterForm() {
           },
           onSuccess: async () => {
             setLoading(false);
-            if (data.userType === "client") {
-              await navigate("/client");
-            }
+            await navigate(`/${data.userType}`);
           },
           onError: (ctx) => {
             setError(ctx.error.message);
@@ -197,8 +195,7 @@ export default function RegisterForm() {
 
       <button
         type="submit"
-        className="text-center w-full bg-gold text-black p-2 rounded text-base md:text-base"
-        // className='w-full bg-gold text-black p-2 rounded text-base md:text-base'
+        className="w-full bg-gold text-black p-2 rounded text-base md:text-base"
         disabled={isLoading}
       >
         {isLoading ? (
