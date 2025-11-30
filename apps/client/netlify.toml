@@ -1,0 +1,5 @@
+[build]
+  base = "/"
+  command = "npm run client:build"
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF apps/client"
+  publish = "/apps/client/dist"
