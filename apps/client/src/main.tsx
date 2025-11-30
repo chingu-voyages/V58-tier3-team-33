@@ -4,6 +4,7 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LandingPage from "./features/auth/pages/LandingPage.tsx";
 import { HomePage } from "./features/client/pages/HomePage.tsx";
+import { PostGigPage } from "./features/client/pages/PostGigPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
   {
     path: "/client",
     element: <HomePage />,
+  },
+  {
+    path: "/client/post-gig",
+    element: <PostGigPage />,
   },
 ]);
 
