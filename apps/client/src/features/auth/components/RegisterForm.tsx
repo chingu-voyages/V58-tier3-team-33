@@ -89,8 +89,8 @@ export default function RegisterForm() {
           )}
         />
 
-        <div className="border-[0.5px] border-gold/30 bg-gold/10 rounded-xl my-4 md:my-8">
-          <p className="text-gold p-3 md:p-4 text-sm md:text-base">
+        <div className='border-[0.5px] bg-accent-gold/5 border-accent-gold/30 rounded-xl my-4 md:my-8'>
+          <p className='text-accent-gold border-accent-gold p-3 md:p-4 text-sm md:text-base'>
             Want to be both? Switch modes anytime after sign up - just start
             with what's most important to you right now
           </p>
@@ -165,15 +165,21 @@ export default function RegisterForm() {
                   aria-invalid={fieldState.invalid}
                   type="checkbox"
                   checked={value}
-                  className="rounded bg-background text-gold"
+                  className='rounded bg-background text-accborder-accent-gold'
                 />
                 <FieldLabel htmlFor={fieldProps.name}>
-                  I agree to the{" "}
-                  <a href="#" className="text-gold hover:underline">
+                  I agree to the{' '}
+                  <a
+                    href='#'
+                    className='text-accborder-accent-gold hover:underline'
+                  >
                     Terms of Service
-                  </a>{" "}
-                  and{" "}
-                  <a href="#" className="text-gold hover:underline">
+                  </a>{' '}
+                  and{' '}
+                  <a
+                    href='#'
+                    className='text-accborder-accent-gold hover:underline'
+                  >
                     Privacy Policy
                   </a>
                   .
@@ -194,8 +200,8 @@ export default function RegisterForm() {
       )}
 
       <button
-        type="submit"
-        className="w-full bg-gold text-black p-2 rounded text-base md:text-base"
+        type='submit'
+        className='w-full bg-accent-gold text-background p-2 rounded text-base md:text-base'
         disabled={isLoading}
       >
         {isLoading ? (

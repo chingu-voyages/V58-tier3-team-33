@@ -6,6 +6,7 @@ import LandingPage from "./features/auth/pages/LandingPage.tsx";
 import { HomePage } from "./features/client/pages/HomePage.tsx";
 import { PostGigPage } from "./features/client/pages/PostGigPage.tsx";
 import FreelancerDashboardPage from "./features/freelancer/pages/FreelancerDashboardPage.tsx";
+import ProfileForm from './features/freelancer/components/ProfileForm.tsx'
 
 const router = createBrowserRouter([
   {
@@ -24,7 +25,11 @@ const router = createBrowserRouter([
     path: "/freelancer",
     element: <FreelancerDashboardPage />,
   },
-]);
+  {
+    path: '/freelancer/profile',
+    element: <ProfileForm />,
+  },
+])
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
