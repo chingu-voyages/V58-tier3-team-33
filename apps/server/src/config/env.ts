@@ -1,14 +1,25 @@
 export const ENV = {
+  cors: {
+    CORS_ORIGIN: getEnvOrPanic("CORS_ORIGIN"),
+  },
   database: {
-    DB_NAME: process.env.DB_NAME,
-    DB_HOST: process.env.DB_HOST,
-    DB_USER: process.env.DB_USER,
-    DB_PASSWORD: process.env.DB_PASSWORD,
+    DB_CONNECTION_STRING: getEnvOrPanic("DB_CONNECTION_STRING"),
   },
   server: {
-    PORT: process.env.PORT,
-  },
-  cors: {
-    CORS_ORIGIN: process.env.CORS_ORIGIN,
+    PORT: getEnvOrPanic("PORT"),
   },
 };
+
+// TODO: can replace with zod validation
+function getEnvOrPanic(key: string, allowEmptyString = false) {
+  if (
+    !Object.hasOwn(process.env, key) ||
+    (!allowEmptyString && !process.env[key])
+  ) {
+    throw new Error(`> ${key} not set, check your env vars`, {
+      cause: { [key]: process.env[key] },
+    });
+  }
+
+  return process.env[key];
+}

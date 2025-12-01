@@ -1,5 +1,8 @@
 # Worksy
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/e73ba7da-985d-4222-a8f2-922c374655b2/deploy-status)](https://app.netlify.com/projects/v58-tier3-team-33/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/7770ab88-8ff9-499e-a967-13faa2b35b18/deploy-status)](https://app.netlify.com/projects/server-v58-tier3-team-33/deploys)
+
 Your project's `readme` is as important to success as your code. For
 this reason you should put as much care into its creation and maintenance
 as you would any other component of the application.
@@ -12,6 +15,10 @@ And before we go there's "one more thing"! Once you decide what to include
 in your `readme` feel free to replace the text we've provided here.
 
 > Own it & Make it your Own!
+
+## Demo
+
+🚀 **Try it live:** [Worksy](https://v58-tier3-team-33.netlify.app/)
 
 ## Dependencies
 
