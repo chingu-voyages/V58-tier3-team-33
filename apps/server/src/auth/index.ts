@@ -1,5 +1,7 @@
+import argon2 from "argon2";
 import { Router } from "express";
 import z from "zod";
+import { ENV } from "../config/env.js";
 import { makeDb } from "../database/db.js";
 
 import type { Generated } from "kysely";
@@ -41,9 +43,17 @@ authRouter.post("/sign-up", async (req, res) => {
       return;
     }
 
+    const passwordHash = await argon2.hash(password, {
+      type: argon2.argon2id,
+      memoryCost: 19 * 2 ** 10,
+      timeCost: 2,
+      parallelism: 1,
+      secret: Buffer.from(ENV.auth.PASSWORD_PEPPER!),
+    });
+
     await db
       .insertInto("users")
-      .values({ full_name: fullName, email, password })
+      .values({ full_name: fullName, email, password: passwordHash })
       .execute();
 
     res.status(201).json({ message: "registration success" });
@@ -63,7 +73,7 @@ authRouter.post("/sign-in", async (req, res) => {
     return;
   }
 
-  const { email } = normalizeSignInData(validationResult.data);
+  const { email, password } = normalizeSignInData(validationResult.data);
 
   try {
     const db = makeDb<{ users: UserSchema }>();
@@ -75,9 +85,24 @@ authRouter.post("/sign-in", async (req, res) => {
       .executeTakeFirst();
 
     if (!existingUser) {
-      res.status(422).json({ message: "invalid credentials" });
+      res.status(400).json({ message: "invalid credentials" });
       return;
     }
+
+    const isPasswordValid = await argon2.verify(
+      existingUser.password,
+      password,
+      {
+        secret: Buffer.from(ENV.auth.PASSWORD_PEPPER!),
+      },
+    );
+
+    if (!isPasswordValid) {
+      res.status(400).json({ message: "invalid credentials" });
+      return;
+    }
+
+    res.status(200).json({ message: "user sign in success" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "internal server error" });
