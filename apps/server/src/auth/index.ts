@@ -48,7 +48,7 @@ authRouter.post("/sign-up", async (req, res) => {
       memoryCost: 19 * 2 ** 10,
       timeCost: 2,
       parallelism: 1,
-      secret: Buffer.from(ENV.auth.PASSWORD_PEPPER!),
+      secret: Buffer.from(ENV.auth.PASSWORD_PEPPER),
     });
 
     await db
@@ -93,7 +93,7 @@ authRouter.post("/sign-in", async (req, res) => {
       existingUser.password,
       password,
       {
-        secret: Buffer.from(ENV.auth.PASSWORD_PEPPER!),
+        secret: Buffer.from(ENV.auth.PASSWORD_PEPPER),
       },
     );
 
