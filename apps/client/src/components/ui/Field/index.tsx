@@ -31,13 +31,18 @@ export const FieldLabel = ({
 FieldLabel.displayName = "FieldLabel";
 
 interface FieldErrorProps {
-  errors: { message?: string }[];
+  error?: unknown;
 }
 
-export const FieldError: React.FC<FieldErrorProps> = ({ errors }) => {
-  if (!errors || errors.length === 0 || !errors[0].message) {
-    return null;
+export const FieldError: React.FC<FieldErrorProps> = ({ error }) => {
+  if (
+    error &&
+    typeof error === "object" &&
+    "message" in error &&
+    typeof error.message === "string"
+  ) {
+    return <p className="text-red-500 text-sm mt-1">{error.message}</p>;
   }
-  return <p className="text-red-500 text-sm mt-1">{errors[0].message}</p>;
+  return null;
 };
 FieldError.displayName = "FieldError";

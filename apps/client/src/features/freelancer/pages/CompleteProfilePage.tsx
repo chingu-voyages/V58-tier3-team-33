@@ -11,6 +11,7 @@ import {
   freelancerProfileSchema,
   type FreelancerProfileSchema,
 } from "../schema";
+import { calculateProgress } from "../../../utils/form";
 import ProgressStepper from "../../auth/components/ProgressStepper"; // Import the stepper
 import { useEffect, useState } from "react";
 
@@ -39,42 +40,9 @@ const FreelancerProfilePage = () => {
   ]);
 
   useEffect(() => {
-    const calculateProgress = () => {
-      const { title, experienceLevel, keySkills, portfolioUrl, bio } =
-        form.getValues();
-      const fields = [
-        {
-          name: "title",
-          value: title,
-          schema: freelancerProfileSchema.shape.title,
-        },
-        {
-          name: "experienceLevel",
-          value: experienceLevel,
-          schema: freelancerProfileSchema.shape.experienceLevel,
-        },
-        {
-          name: "keySkills",
-          value: keySkills,
-          schema: freelancerProfileSchema.shape.keySkills,
-        },
-        {
-          name: "portfolioUrl",
-          value: portfolioUrl,
-          schema: freelancerProfileSchema.shape.portfolioUrl,
-        },
-        { name: "bio", value: bio, schema: freelancerProfileSchema.shape.bio },
-      ];
-
-      const completedFields = fields.filter((field) => {
-        return field.schema.safeParse(field.value).success;
-      }).length;
-
-      const newProgress = (completedFields / fields.length) * 100;
-      setProgress(newProgress);
-    };
-
-    calculateProgress();
+    const values = form.getValues();
+    const newProgress = calculateProgress(values, freelancerProfileSchema);
+    setProgress(newProgress);
   }, [form, watchedFields]);
 
   const onSubmit = (data: FreelancerProfileSchema) => {
@@ -124,9 +92,7 @@ const FreelancerProfilePage = () => {
                     placeholder="e.g., Senior Frontend Developer"
                     className="w-full py-2 px-3 rounded-lg bg-background text-white border border-gray-700 focus:ring-accent-gold focus:border-accent-gold"
                   />
-                  {fieldState.error && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
+                  {fieldState.error && <FieldError error={fieldState.error} />}
                 </Field>
               )}
             />
@@ -209,9 +175,7 @@ const FreelancerProfilePage = () => {
                     placeholder="e.g., https://yourportfolio.com"
                     className="w-full py-2 px-3 rounded-lg bg-background text-white border border-gray-700 focus:ring-accent-gold focus:border-accent-gold"
                   />
-                  {fieldState.error && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
+                  {fieldState.error && <FieldError error={fieldState.error} />}
                 </Field>
               )}
             />
@@ -238,9 +202,7 @@ const FreelancerProfilePage = () => {
                       Array.isArray(field.value) ? field.value.join(", ") : ""
                     }
                   />
-                  {fieldState.error && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
+                  {fieldState.error && <FieldError error={fieldState.error} />}
                 </Field>
               )}
             />
@@ -265,9 +227,7 @@ const FreelancerProfilePage = () => {
                   <p className="text-sm text-gray-mid text-right">
                     {field.value?.length ?? 0} / 500
                   </p>
-                  {fieldState.error && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
+                  {fieldState.error && <FieldError error={fieldState.error} />}
                 </Field>
               )}
             />

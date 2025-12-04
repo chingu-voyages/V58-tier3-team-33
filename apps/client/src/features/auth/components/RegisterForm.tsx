@@ -6,6 +6,7 @@ import { authClient } from "../auth-client";
 import ProgressStepper from "./ProgressStepper";
 import { registerSchema, type RegisterSchema } from "../schema";
 import SegmentedControl from "./SegmentedControl";
+import { calculateProgress } from "@/utils/form";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/Alert";
 import {
   Field,
@@ -42,36 +43,9 @@ export default function RegisterForm() {
   const userTypeValue = form.watch("userType");
 
   useEffect(() => {
-    const calculateProgress = () => {
-      const { name, email, password, termsAgreement } = form.getValues();
-      const fields = [
-        {
-          name: "fullname",
-          value: name,
-          schema: registerSchema.shape.name,
-        },
-        { name: "email", value: email, schema: registerSchema.shape.email },
-        {
-          name: "password",
-          value: password,
-          schema: registerSchema.shape.password,
-        },
-        {
-          name: "termsAgreement",
-          value: termsAgreement,
-          schema: registerSchema.shape.termsAgreement,
-        },
-      ];
-
-      const completedFields = fields.filter((field) => {
-        return field.schema.safeParse(field.value).success;
-      }).length;
-
-      const newProgress = (completedFields / fields.length) * 100;
-      setProgress(newProgress);
-    };
-
-    calculateProgress();
+    const values = form.getValues();
+    const newProgress = calculateProgress(values, registerSchema, ["userType"]);
+    setProgress(newProgress);
   }, [form, nameWatched, emailWatched, passwordWatched, termsAgreementWatched]);
 
   const onSubmit = async (data: RegisterSchema) => {
@@ -167,7 +141,7 @@ export default function RegisterForm() {
                 placeholder="Enter your display name"
                 className="w-full py-2 px-3 md:py-3 md:px-5 rounded-lg bg-background text-white"
               />
-              {fieldState.error && <FieldError errors={[fieldState.error]} />}
+              {fieldState.error && <FieldError error={fieldState.error} />}
             </Field>
           )}
         />
@@ -186,7 +160,7 @@ export default function RegisterForm() {
                 placeholder="you@example.com"
                 className="w-full py-2 px-3 md:py-3 md:px-5 rounded-lg bg-background text-white"
               />
-              {fieldState.error && <FieldError errors={[fieldState.error]} />}
+              {fieldState.error && <FieldError error={fieldState.error} />}
             </Field>
           )}
         />
@@ -205,7 +179,7 @@ export default function RegisterForm() {
                 placeholder="Create a strong password"
                 className="w-full py-2 px-3 md:py-3 md:px-5 rounded-lg bg-background text-white"
               />
-              {fieldState.error && <FieldError errors={[fieldState.error]} />}
+              {fieldState.error && <FieldError error={fieldState.error} />}
             </Field>
           )}
         />
@@ -242,7 +216,7 @@ export default function RegisterForm() {
                   .
                 </FieldLabel>
               </div>
-              {fieldState.error && <FieldError errors={[fieldState.error]} />}
+              {fieldState.error && <FieldError error={fieldState.error} />}
             </Field>
           )}
         />
