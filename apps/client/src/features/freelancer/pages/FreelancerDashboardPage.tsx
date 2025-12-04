@@ -1,8 +1,8 @@
-import { Link, useNavigate } from 'react-router-dom'
-import Profile from '../components/Profile'
+import { Link, useNavigate } from "react-router-dom";
+import Profile from "../components/Profile";
 
 export default function FreelancerDashboardPage() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   // For an empty state, we won't have gigs or applications initially
   // const hasApplications = applications.length > 0 // This would be for a full implementation
 
@@ -13,8 +13,8 @@ export default function FreelancerDashboardPage() {
   // }
 
   const handleCompleteProfileClick = () => {
-    void navigate('/freelancer/profile')
-  }
+    void navigate("/freelancer/profile");
+  };
 
   return (
     <>
@@ -61,7 +61,7 @@ export default function FreelancerDashboardPage() {
                 Create your profile to let clients know about what you offer
               </p>
               <button
-                className='bg-accent-gold text-background font-black mt-4'
+                className="bg-accent-gold text-background font-black mt-4"
                 onClick={handleCompleteProfileClick}
               >
                 Complete Profile

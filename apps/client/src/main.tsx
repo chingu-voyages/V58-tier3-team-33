@@ -3,10 +3,7 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LandingPage from "./features/auth/pages/LandingPage.tsx";
-import { HomePage } from "./features/client/pages/HomePage.tsx";
-import { PostGigPage } from "./features/client/pages/PostGigPage.tsx";
-import FreelancerDashboardPage from "./features/freelancer/pages/FreelancerDashboardPage.tsx";
-import ProfileForm from './features/freelancer/components/ProfileForm.tsx'
+import CompleteProfilePage from "./features/freelancer/pages/CompleteProfilePage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -14,22 +11,10 @@ const router = createBrowserRouter([
     element: <LandingPage />,
   },
   {
-    path: "/client",
-    element: <HomePage />,
-  },
-  {
-    path: "/client/post-gig",
-    element: <PostGigPage />,
-  },
-  {
     path: "/freelancer",
-    element: <FreelancerDashboardPage />,
+    element: <CompleteProfilePage />,
   },
-  {
-    path: '/freelancer/profile',
-    element: <ProfileForm />,
-  },
-])
+]);
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
