@@ -11,19 +11,71 @@ import {
   freelancerProfileSchema,
   type FreelancerProfileSchema,
 } from "../schema";
+import ProgressStepper from "../../auth/components/ProgressStepper"; // Import the stepper
+import { useEffect, useState } from "react";
 
 const FreelancerProfilePage = () => {
   const navigate = useNavigate();
+  const [progress, setProgress] = useState(0); // State for step 2 progress
   const form = useForm<FreelancerProfileSchema>({
     resolver: zodResolver(freelancerProfileSchema),
+    mode: "onTouched",
     defaultValues: {
       title: "",
       experienceLevel: "Developing",
       keySkills: [],
       portfolioUrl: "",
-      bio: "", // Added bio field
+      bio: "",
     },
   });
+
+  // eslint-disable-next-line react-hooks/incompatible-library
+  const watchedFields = form.watch([
+    "title",
+    "experienceLevel",
+    "keySkills",
+    "portfolioUrl",
+    "bio",
+  ]);
+
+  useEffect(() => {
+    const calculateProgress = () => {
+      const { title, experienceLevel, keySkills, portfolioUrl, bio } =
+        form.getValues();
+      const fields = [
+        {
+          name: "title",
+          value: title,
+          schema: freelancerProfileSchema.shape.title,
+        },
+        {
+          name: "experienceLevel",
+          value: experienceLevel,
+          schema: freelancerProfileSchema.shape.experienceLevel,
+        },
+        {
+          name: "keySkills",
+          value: keySkills,
+          schema: freelancerProfileSchema.shape.keySkills,
+        },
+        {
+          name: "portfolioUrl",
+          value: portfolioUrl,
+          schema: freelancerProfileSchema.shape.portfolioUrl,
+        },
+        { name: "bio", value: bio, schema: freelancerProfileSchema.shape.bio },
+      ];
+
+      const completedFields = fields.filter((field) => {
+        return field.schema.safeParse(field.value).success;
+      }).length;
+
+      const newProgress = (completedFields / fields.length) * 100;
+      setProgress(newProgress);
+    };
+
+    calculateProgress();
+  }, [form, watchedFields]);
 
   const onSubmit = (data: FreelancerProfileSchema) => {
     console.info("Freelancer Profile Submitted:", data);
@@ -41,7 +93,15 @@ const FreelancerProfilePage = () => {
           </h2>
           <h2 className="text-lg">Digital talent meets opportunity</h2>
         </nav>
-        <h2 className="text-2xl font-bold">Tell is about yourself</h2>
+        {/* Progress Stepper for Step 2 */}
+        <ProgressStepper
+          progress1={100} // Step 1 is complete
+          progress2={progress}
+          currentStep={2}
+          step1Label="Create Account"
+          step2Label="Complete Profile"
+        />
+        <h2 className="text-2xl font-bold mt-8">Tell us about yourself</h2>
         <p className="text-start text-gray-mid mb-8">
           Help clients understand your skills and experience. You can always
           update this later.
@@ -79,7 +139,7 @@ const FreelancerProfilePage = () => {
                   {
                     title: "Emerging",
                     description:
-                      "Just starting out — Less thab 1 year of hands-on experience.",
+                      "Just starting out — Less than 1 year of hands-on experience.",
                   },
                   {
                     title: "Developing",
@@ -89,17 +149,17 @@ const FreelancerProfilePage = () => {
                   {
                     title: "Proficient",
                     description:
-                      "Comfident and capable — 1.5 years to 4 years of experience.",
+                      "Confident and capable — 1.5 years to 4 years of experience.",
                   },
                   {
                     title: "Advanced",
                     description:
-                      "Leading projects indepenedently — 3 to 7 years of experience.",
+                      "Leading projects independently — 3 to 7 years of experience.",
                   },
                   {
                     title: "Expert",
                     description:
-                      "Deep specialist or generalistt — 6+ years of proven experience.",
+                      "Deep specialist or generalist — 6+ years of proven experience.",
                   },
                 ];
 
@@ -198,7 +258,7 @@ const FreelancerProfilePage = () => {
                     {...field}
                     id={field.name}
                     aria-invalid={fieldState.invalid}
-                    placeholder="Tell clients abit about yourself and what you do best..."
+                    placeholder="Tell clients a bit about yourself and what you do best..."
                     rows={4}
                     className="w-full py-2 px-3 rounded-lg bg-background text-white border border-gray-700 focus:ring-accent-gold focus:border-accent-gold"
                   />

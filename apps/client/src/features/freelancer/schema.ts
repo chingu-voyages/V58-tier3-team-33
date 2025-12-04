@@ -10,7 +10,9 @@ export const freelancerProfileSchema = z.object({
     },
   ),
 
-  keySkills: z.array(z.string()).min(1, "Please list at least one skill."),
+  keySkills: z
+    .array(z.string().min(1, "Skill cannot be empty."))
+    .min(1, "Please list at least one skill."),
 
   portfolioUrl: z
     .string()

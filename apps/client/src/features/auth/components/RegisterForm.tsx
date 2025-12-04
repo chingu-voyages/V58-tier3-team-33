@@ -1,8 +1,9 @@
 import { AlertCircleIcon } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { authClient } from "../auth-client";
+import ProgressStepper from "./ProgressStepper";
 import { registerSchema, type RegisterSchema } from "../schema";
 import SegmentedControl from "./SegmentedControl";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/Alert";
@@ -18,10 +19,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 export default function RegisterForm() {
   const [error, setError] = useState<string>("");
   const [isLoading, setLoading] = useState<boolean>(false);
+  const [progress, setProgress] = useState(0);
   const navigate = useNavigate();
 
   const form = useForm<RegisterSchema>({
     resolver: zodResolver(registerSchema),
+    mode: "onTouched",
     defaultValues: {
       name: "",
       email: "",
@@ -30,6 +33,46 @@ export default function RegisterForm() {
       termsAgreement: false,
     },
   });
+
+  // eslint-disable-next-line react-hooks/incompatible-library
+  const nameWatched = form.watch("name");
+  const emailWatched = form.watch("email");
+  const passwordWatched = form.watch("password");
+  const termsAgreementWatched = form.watch("termsAgreement");
+  const userTypeValue = form.watch("userType");
+
+  useEffect(() => {
+    const calculateProgress = () => {
+      const { name, email, password, termsAgreement } = form.getValues();
+      const fields = [
+        {
+          name: "fullname",
+          value: name,
+          schema: registerSchema.shape.name,
+        },
+        { name: "email", value: email, schema: registerSchema.shape.email },
+        {
+          name: "password",
+          value: password,
+          schema: registerSchema.shape.password,
+        },
+        {
+          name: "termsAgreement",
+          value: termsAgreement,
+          schema: registerSchema.shape.termsAgreement,
+        },
+      ];
+
+      const completedFields = fields.filter((field) => {
+        return field.schema.safeParse(field.value).success;
+      }).length;
+
+      const newProgress = (completedFields / fields.length) * 100;
+      setProgress(newProgress);
+    };
+
+    calculateProgress();
+  }, [form, nameWatched, emailWatched, passwordWatched, termsAgreementWatched]);
 
   const onSubmit = async (data: RegisterSchema) => {
     try {
@@ -92,6 +135,16 @@ export default function RegisterForm() {
             </Field>
           )}
         />
+
+        {userTypeValue === "freelancer" && (
+          <ProgressStepper
+            progress1={progress}
+            progress2={0}
+            currentStep={1}
+            step1Label="Create Account"
+            step2Label="Complete Profile"
+          />
+        )}
 
         <div className="border-[0.5px] bg-accent-gold/5 border-accent-gold/30 rounded-xl my-4 md:my-8">
           <p className="text-accent-gold border-accent-gold p-3 md:p-4 text-sm md:text-base">
