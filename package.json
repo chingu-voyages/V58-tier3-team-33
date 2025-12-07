@@ -17,6 +17,7 @@
     "client:format": "npm run format --workspace=apps/client",
     "client:lint": "npm run lint --workspace=apps/client",
     "====================== SERVER ======================": "",
+    "db:migrate": "npm run migrate --workspace=apps/server",
     "server:dev": "npm run dev --workspace=apps/server",
     "server:build": "npm run build --workspace=apps/server",
     "server:format": "npm run format --workspace=apps/server",

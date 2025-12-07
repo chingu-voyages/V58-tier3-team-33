@@ -37,13 +37,23 @@ root/
 ├── package.json
 └── apps/
     ├── client/
+    |   ├── .env.example
     |   ├── package.json
+    |   ├── config/
+    |   |   └── env.ts
     │   └── src/
     │       └── main.tsx
     └── server/
+    |   ├── .env.example
         ├── package.json
         └── src/
-            └── server.ts
+            ├── server.ts
+            ├── config/
+            |   └── env.ts
+            └── database/
+                ├── db.ts
+                ├── migrate.ts
+                └── migrations/
 ```
 
 ## Dev Setup
@@ -56,12 +66,19 @@ root/
    ```
 
 2. Create a copy of `.env.example` called `.env` for each app and fill the value for each environment variable.
-
 3. [start the local database server](https://www.postgresql.org/docs/current/server-start.html). If this is your fist time:
    - [add a new server](https://www.pgadmin.org/docs/pgadmin4/latest/user_interface.html) with default settings and `localhost` as hostname
-   - [create a database](https://www.pgadmin.org/docs/pgadmin4/latest/managing_cluster_objects.html) called `test` using the database dialog
+   - [create a database](https://www.pgadmin.org/docs/pgadmin4/latest/managing_cluster_objects.html) using the database dialog
+4. run database migrations
 
-4. spin up client and server dev servers
+   ```sh
+   # from the root of the repo, it defaults to --init
+   npm run db:migrate
+   # alternatively, you can run --reset if you want to undo and redo the migrations
+   npm un db:migrate -- -- --reset
+   ```
+
+5. spin up client and server dev servers
 
    ```sh
    # from the root of the repo once again
