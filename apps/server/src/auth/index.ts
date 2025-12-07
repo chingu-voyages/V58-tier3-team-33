@@ -1,5 +1,6 @@
 import argon2 from "argon2";
 import { APIError, betterAuth, type BetterAuthOptions } from "better-auth";
+import { fromNodeHeaders } from "better-auth/node";
 import { Router } from "express";
 import z from "zod";
 import { ENV } from "../config/env.js";
@@ -148,6 +149,26 @@ authRouter.post("/sign-in", async (req, res) => {
       // 401 is used for authorization purposes only
       const status = error.statusCode == 401 ? 400 : error.statusCode;
       res.status(status).json({ message: error.message });
+      return;
+    }
+
+    res.status(500).json({ message: "internal server error" });
+  }
+});
+
+authRouter.post("/sign-out", async (req, res) => {
+  try {
+    const { response, headers } = await auth.api.signOut({
+      headers: fromNodeHeaders(req.headers),
+      returnHeaders: true,
+    });
+
+    res.setHeaders(headers);
+    res.json(response);
+  } catch (error) {
+    console.error(error);
+    if (error instanceof APIError) {
+      res.status(error.statusCode).json({ message: error.message });
       return;
     }
 
