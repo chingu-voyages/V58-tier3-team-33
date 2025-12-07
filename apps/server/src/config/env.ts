@@ -24,5 +24,5 @@ function getEnvOrPanic(key: string, allowEmptyString = false) {
     });
   }
 
-  return String(process.env[key]);
+  return process.env[key] ?? "";
 }
