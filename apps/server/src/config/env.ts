@@ -6,6 +6,7 @@ export const ENV = {
     DB_CONNECTION_STRING: getEnvOrPanic("DB_CONNECTION_STRING"),
   },
   server: {
+    ORIGIN: getEnvOrPanic("ORIGIN"),
     PORT: getEnvOrPanic("PORT"),
   },
   auth: {
@@ -24,5 +25,5 @@ function getEnvOrPanic(key: string, allowEmptyString = false) {
     });
   }
 
-  return String(process.env[key]);
+  return process.env[key] ?? "";
 }
