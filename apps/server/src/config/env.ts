@@ -8,6 +8,9 @@ export const ENV = {
   server: {
     PORT: getEnvOrPanic("PORT"),
   },
+  auth: {
+    PASSWORD_PEPPER: getEnvOrPanic("PASSWORD_PEPPER"),
+  },
 };
 
 // TODO: can replace with zod validation
@@ -21,5 +24,5 @@ function getEnvOrPanic(key: string, allowEmptyString = false) {
     });
   }
 
-  return process.env[key];
+  return String(process.env[key]);
 }
