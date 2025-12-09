@@ -4,7 +4,7 @@ import { fromNodeHeaders } from "better-auth/node";
 import { auth } from "../auth/index.js";
 import { makeDb } from "../database/db.js";
 
-interface JobsTable {
+export interface JobsTable {
   id: ColumnType<string, string, never>;
   name: string;
   slug: string;
