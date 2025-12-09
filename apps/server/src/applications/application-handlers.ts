@@ -108,6 +108,37 @@ export async function createApplication(req: Request, res: Response) {
   }
 }
 
+export async function getPendingApplication(req: Request, res: Response) {
+  const session = await auth.api.getSession({
+    headers: fromNodeHeaders(req.headers),
+  });
+
+  if (!session) {
+    res.status(401).json({ message: "log in to continue" });
+    return;
+  }
+
+  try {
+    const db = makeDb<{ applications: ApplicationsTable }>();
+    const application = await db
+      .selectFrom("applications")
+      .selectAll()
+      .where("status", "=", "pending")
+      .where("user_id", "=", session.user.id)
+      .executeTakeFirst();
+
+    if (!application) {
+      res.status(404).json({ message: "pending application not found" });
+      return;
+    }
+
+    res.json({ application });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "internal server error" });
+  }
+}
+
 function validateApplicationData(body: unknown) {
   const applicationSchema = z.object({
     // TODO: change relevant properties to enums after seeing frontend
