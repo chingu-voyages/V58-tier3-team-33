@@ -1,6 +1,7 @@
 import { Pool } from "pg";
 import { Kysely, PostgresDialect, sql } from "kysely";
 import { ENV } from "../config/env.js";
+import { createId, isCuid } from "@paralleldrive/cuid2";
 
 let db: Kysely<object>;
 
@@ -40,4 +41,12 @@ export async function pingDb() {
     console.error("> DB ping failed", err);
     return false;
   }
+}
+
+export function makeId() {
+  return createId();
+}
+
+export function isValidId(id: string) {
+  return isCuid(id);
 }

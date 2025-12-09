@@ -4,7 +4,7 @@ import { fromNodeHeaders } from "better-auth/node";
 import { Router } from "express";
 import z from "zod";
 import { ENV } from "../config/env.js";
-import { makeDb } from "../database/db.js";
+import { makeDb, makeId } from "../database/db.js";
 
 interface BetterAuthTablesConfig {
   user: BetterAuthOptions["user"];
@@ -71,6 +71,11 @@ const auth = betterAuth<BetterAuthOptions>({
     */
     casing: "snake",
     transaction: true,
+  },
+  advanced: {
+    database: {
+      generateId: () => makeId(),
+    },
   },
   ...authTablesConfig,
   emailAndPassword: {
