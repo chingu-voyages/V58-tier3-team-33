@@ -1,4 +1,4 @@
-import { Kysely, sql } from "kysely";
+import { sql, type Kysely } from "kysely";
 
 export async function up({ schema }: Kysely<unknown>) {
   await schema
@@ -15,6 +15,7 @@ export async function up({ schema }: Kysely<unknown>) {
       col.defaultTo(sql`CURRENT_TIMESTAMP`).notNull(),
     )
     .execute();
+
   await schema
     .createTable("sessions")
     .addColumn("id", "text", (col) => col.primaryKey())
@@ -32,6 +33,7 @@ export async function up({ schema }: Kysely<unknown>) {
       col.defaultTo(sql`CURRENT_TIMESTAMP`).notNull(),
     )
     .execute();
+
   await schema
     .createTable("accounts")
     .addColumn("id", "text", (col) => col.primaryKey())
@@ -54,6 +56,7 @@ export async function up({ schema }: Kysely<unknown>) {
       col.notNull().defaultTo(sql`CURRENT_TIMESTAMP`),
     )
     .execute();
+
   await schema
     .createTable("verifications")
     .addColumn("id", "text", (col) => col.primaryKey())
@@ -67,6 +70,7 @@ export async function up({ schema }: Kysely<unknown>) {
       col.notNull().defaultTo(sql`CURRENT_TIMESTAMP`),
     )
     .execute();
+
   await schema
     .createIndex("sessions_user_id_idx")
     .on("sessions")
