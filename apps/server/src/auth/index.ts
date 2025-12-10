@@ -96,7 +96,7 @@ const auth = betterAuth<BetterAuthOptions>({
 
 const authRouter = Router();
 
-authRouter.post("/sign-up", async (req, res) => {
+authRouter.post("/sign-up/email", async (req, res) => {
   const { success, data: validated, error } = validateSignUpData(req.body);
 
   if (!success) {
@@ -125,7 +125,7 @@ authRouter.post("/sign-up", async (req, res) => {
   }
 });
 
-authRouter.post("/sign-in", async (req, res) => {
+authRouter.post("/sign-in/email", async (req, res) => {
   const { success, data: validated, error } = validateSignInData(req.body);
 
   if (!success) {

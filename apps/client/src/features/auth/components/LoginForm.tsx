@@ -1,6 +1,7 @@
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-
+import { authClient } from "../auth-client";
 import { loginSchema, type LoginSchema } from "../schema";
 import {
   Field,
@@ -10,6 +11,8 @@ import {
 } from "../../../components/ui/Field";
 
 const LoginForm = () => {
+  const [status, setStatus] = useState<string>("");
+
   const form = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -18,8 +21,29 @@ const LoginForm = () => {
     },
   });
 
-  const onSubmit = (data: LoginSchema) => {
-    console.info("Login Form Submitted:", data);
+  const onSubmit = async (data: LoginSchema) => {
+    try {
+      return await authClient.signIn.email(
+        {
+          email: data.email,
+          password: data.password,
+        },
+        {
+          onRequest: () => {
+            setStatus("Pending...");
+          },
+          onSuccess: () => {
+            setStatus("Sign-in was a success");
+          },
+          onError: (ctx) => {
+            setStatus(ctx.error.message);
+          },
+        },
+      );
+    } catch (error) {
+      setStatus("An unexpected error occured.");
+      console.error(error);
+    }
   };
 
   return (
@@ -72,6 +96,9 @@ const LoginForm = () => {
           )}
         />
       </FieldGroup>
+
+      {status && <div>{status}</div>}
+
       <button
         type="submit"
         className="w-full rounded bg-gold p-3 pt-2 font-semibold text-black transition-colors duration-200 hover:bg-amber-500 md:text-base"
