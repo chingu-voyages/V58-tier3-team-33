@@ -58,7 +58,7 @@ const authTablesConfig: BetterAuthTablesConfig = {
   },
 };
 
-const auth = betterAuth<BetterAuthOptions>({
+export const auth = betterAuth<BetterAuthOptions>({
   baseURL: ENV.server.ORIGIN,
   secret: ENV.auth.PASSWORD_PEPPER,
   database: {
