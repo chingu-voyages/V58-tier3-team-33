@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { authClient } from "../auth-client";
 import {
   Field,
   FieldError,
@@ -10,6 +12,8 @@ import SegmentedControl from "./SegmentedControl";
 import { registerSchema, type RegisterSchema } from "../schema";
 
 const RegisterForm = () => {
+  const [status, setStatus] = useState<string>("");
+
   const form = useForm<RegisterSchema>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -21,8 +25,30 @@ const RegisterForm = () => {
     },
   });
 
-  const onSubmit = (data: RegisterSchema) => {
-    console.info("Register Form Submitted:", data);
+  const onSubmit = async (data: RegisterSchema) => {
+    try {
+      return await authClient.signUp.email(
+        {
+          name: data.fullname,
+          email: data.email,
+          password: data.password,
+        },
+        {
+          onRequest: () => {
+            setStatus("Pending...");
+          },
+          onSuccess: () => {
+            setStatus("Registration was a success");
+          },
+          onError: (ctx) => {
+            setStatus(ctx.error.message);
+          },
+        },
+      );
+    } catch (error) {
+      setStatus("An unexpected error occured.");
+      console.error(error);
+    }
   };
 
   return (
@@ -143,6 +169,8 @@ const RegisterForm = () => {
           )}
         />
       </FieldGroup>
+
+      {status && <div>{status}</div>}
 
       <button
         type="submit"
