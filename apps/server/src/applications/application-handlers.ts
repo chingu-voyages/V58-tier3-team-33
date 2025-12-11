@@ -13,7 +13,7 @@ not supporting them, resulting in typing errors when used
 see https://github.com/kysely-org/kysely/issues/577
 */
 type Status = "pending" | "approved" | "rejected";
-interface ApplicationsTable {
+export interface ApplicationsTable {
   id: ColumnType<string, string, never>;
   user_id: ColumnType<string, string, never>;
   job_id: JobsTable["id"];
