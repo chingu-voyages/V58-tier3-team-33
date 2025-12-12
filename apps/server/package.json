@@ -15,6 +15,7 @@
     "migrate": "dotenvx run -- node --no-warnings=ExperimentalWarning --loader ts-node/esm src/database/migrate.ts"
   },
   "dependencies": {
+    "@paralleldrive/cuid2": "3.0.4",
     "argon2": "0.44.0",
     "better-auth": "1.4.5",
     "cors": "2.8.5",
