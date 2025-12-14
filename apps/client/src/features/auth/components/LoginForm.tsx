@@ -1,17 +1,21 @@
+import { AlertCircleIcon } from "lucide-react";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { authClient } from "../auth-client";
 import { loginSchema, type LoginSchema } from "../schema";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/Alert";
 import {
   Field,
   FieldError,
   FieldGroup,
   FieldLabel,
-} from "../../../components/ui/Field";
+} from "@/components/ui/Field";
+import { Spinner } from "@/components/ui/spinner";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-const LoginForm = () => {
-  const [status, setStatus] = useState<string>("");
+export default function LoginForm() {
+  const [error, setError] = useState<string>("");
+  const [isLoading, setLoading] = useState<boolean>(false);
 
   const form = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
@@ -30,18 +34,20 @@ const LoginForm = () => {
         },
         {
           onRequest: () => {
-            setStatus("Pending...");
+            setLoading(true);
+            setError("");
           },
           onSuccess: () => {
-            setStatus("Sign-in was a success");
+            setLoading(false);
           },
           onError: (ctx) => {
-            setStatus(ctx.error.message);
+            setError(ctx.error.message);
+            setLoading(false);
           },
         },
       );
     } catch (error) {
-      setStatus("An unexpected error occured.");
+      setError("An unexpected error occured.");
       console.error(error);
     }
   };
@@ -52,13 +58,6 @@ const LoginForm = () => {
       className="w-full space-y-6 text-base md:text-base "
     >
       <FieldGroup>
-        {/* Placeholder for informational message */}
-        <div className="border-[0.5px] border-gold/30 bg-gold/10 rounded-xl md:mb-5">
-          <p className="p-3 text-sm text-gold md:p-4 md:text-base">
-            Welcome back! Enter your credentials to access your account.
-          </p>
-        </div>
-
         <Controller
           control={form.control}
           name="email"
@@ -97,16 +96,27 @@ const LoginForm = () => {
         />
       </FieldGroup>
 
-      {status && <div>{status}</div>}
+      {error && (
+        <Alert variant="destructive">
+          <AlertCircleIcon />
+          <AlertTitle>Login failed</AlertTitle>
+          <AlertDescription>{error}</AlertDescription>
+        </Alert>
+      )}
 
       <button
         type="submit"
         className="w-full rounded bg-gold p-3 pt-2 font-semibold text-black transition-colors duration-200 hover:bg-amber-500 md:text-base"
+        disabled={isLoading}
       >
-        Login
+        {isLoading ? (
+          <>
+            Signing in <Spinner className="inline size-6" />
+          </>
+        ) : (
+          "Log in"
+        )}
       </button>
     </form>
   );
-};
-
-export default LoginForm;
+}
