@@ -21,7 +21,7 @@ export default function RegisterForm() {
   const form = useForm<RegisterSchema>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
-      fullname: "",
+      name: "",
       email: "",
       password: "",
       userType: "freelancer",
@@ -33,7 +33,7 @@ export default function RegisterForm() {
     try {
       return await authClient.signUp.email(
         {
-          name: data.fullname,
+          name: data.name,
           email: data.email,
           password: data.password,
         },
@@ -94,16 +94,16 @@ export default function RegisterForm() {
 
         <Controller
           control={form.control}
-          name="fullname"
+          name="name"
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
-              <FieldLabel htmlFor={field.name}>Full Name</FieldLabel>
+              <FieldLabel htmlFor={field.name}>Display Name</FieldLabel>
               <input
                 {...field}
                 id={field.name}
                 aria-invalid={fieldState.invalid}
                 type="text"
-                placeholder="Enter your full name"
+                placeholder="Enter your display name"
                 className="w-full py-2 px-3 md:py-3 md:px-5 rounded-lg bg-background text-white"
               />
               {fieldState.error && <FieldError errors={[fieldState.error]} />}
