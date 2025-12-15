@@ -1,23 +1,27 @@
+import { AlertCircleIcon } from "lucide-react";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { authClient } from "../auth-client";
+import { registerSchema, type RegisterSchema } from "../schema";
+import SegmentedControl from "./SegmentedControl";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/Alert";
 import {
   Field,
   FieldError,
   FieldGroup,
   FieldLabel,
-} from "../../../components/ui/Field";
-import SegmentedControl from "./SegmentedControl";
-import { registerSchema, type RegisterSchema } from "../schema";
+} from "@/components/ui/Field";
+import { Spinner } from "@/components/ui/spinner";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-const RegisterForm = () => {
-  const [status, setStatus] = useState<string>("");
+export default function RegisterForm() {
+  const [error, setError] = useState<string>("");
+  const [isLoading, setLoading] = useState<boolean>(false);
 
   const form = useForm<RegisterSchema>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
-      fullname: "",
+      name: "",
       email: "",
       password: "",
       userType: "freelancer",
@@ -29,25 +33,32 @@ const RegisterForm = () => {
     try {
       return await authClient.signUp.email(
         {
-          name: data.fullname,
+          name: data.name,
           email: data.email,
           password: data.password,
         },
         {
           onRequest: () => {
-            setStatus("Pending...");
+            setLoading(true);
+            setError("");
           },
           onSuccess: () => {
-            setStatus("Registration was a success");
+            setLoading(false);
           },
           onError: (ctx) => {
-            setStatus(ctx.error.message);
+            setError(ctx.error.message);
+            setLoading(false);
           },
         },
       );
     } catch (error) {
-      setStatus("An unexpected error occured.");
       console.error(error);
+
+      if (error instanceof Error) {
+        setError(error.message);
+      } else if (typeof error == "string") {
+        setError(error);
+      }
     }
   };
 
@@ -83,16 +94,16 @@ const RegisterForm = () => {
 
         <Controller
           control={form.control}
-          name="fullname"
+          name="name"
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
-              <FieldLabel htmlFor={field.name}>Full Name</FieldLabel>
+              <FieldLabel htmlFor={field.name}>Display Name</FieldLabel>
               <input
                 {...field}
                 id={field.name}
                 aria-invalid={fieldState.invalid}
                 type="text"
-                placeholder="Enter your full name"
+                placeholder="Enter your display name"
                 className="w-full py-2 px-3 md:py-3 md:px-5 rounded-lg bg-background text-white"
               />
               {fieldState.error && <FieldError errors={[fieldState.error]} />}
@@ -170,16 +181,27 @@ const RegisterForm = () => {
         />
       </FieldGroup>
 
-      {status && <div>{status}</div>}
+      {error && (
+        <Alert variant="destructive">
+          <AlertCircleIcon />
+          <AlertTitle>Signup failed</AlertTitle>
+          <AlertDescription>{error}</AlertDescription>
+        </Alert>
+      )}
 
       <button
         type="submit"
-        className="w-full bg-gold text-black p-2 rounded text-base md:text-base"
+        className="text-center w-full bg-gold text-black p-2 rounded text-base md:text-base"
+        disabled={isLoading}
       >
-        Create Account
+        {isLoading ? (
+          <>
+            Signing up <Spinner className="inline size-6" />
+          </>
+        ) : (
+          "Create Account"
+        )}
       </button>
     </form>
   );
-};
-
-export default RegisterForm;
+}

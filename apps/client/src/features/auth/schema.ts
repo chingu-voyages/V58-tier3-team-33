@@ -2,23 +2,11 @@ import { z } from "zod";
 
 // Base schema with all possible fields
 const authSchema = z.object({
-  fullname: z.string().trim().min(1, { message: "Full name is required" }),
-  email: z.string().trim().email({ message: "Invalid email address" }),
+  name: z.string().trim().min(3, { message: "Display name is required" }),
+  email: z.email({ message: "Invalid email address" }),
   password: z
     .string()
-    .min(8, { message: "Password must be at least 8 characters long." })
-    .regex(/^(?=.*[a-z])/, {
-      message: "Password must contain at least one lowercase letter.",
-    })
-    .regex(/^(?=.*[A-Z])/, {
-      message: "Password must contain at least one uppercase letter.",
-    })
-    .regex(/^(?=.*\d)/, {
-      message: "Password must contain at least one number.",
-    })
-    .regex(new RegExp("^(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>/\\?])"), {
-      message: "Password must contain at least one special character.",
-    }),
+    .min(8, { message: "Password must be at least 8 characters long." }),
   userType: z.enum(["freelancer", "client"]),
   termsAgreement: z.boolean().refine((val) => val === true, {
     message: "You must agree to the terms and conditions",
@@ -27,7 +15,7 @@ const authSchema = z.object({
 
 // Schema for registration form
 export const registerSchema = authSchema.pick({
-  fullname: true,
+  name: true,
   email: true,
   password: true,
   userType: true,
