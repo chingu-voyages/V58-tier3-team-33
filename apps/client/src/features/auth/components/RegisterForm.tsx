@@ -66,7 +66,7 @@ export default function RegisterForm() {
             if (data.userType == "client") {
               await navigate("/client");
             } else if (data.userType == "freelancer") {
-              await navigate("/freelancer/profile");
+              await navigate("/freelancer");
             }
           },
           onError: (ctx) => {
