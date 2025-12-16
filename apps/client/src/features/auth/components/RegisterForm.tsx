@@ -42,12 +42,8 @@ export default function RegisterForm() {
             setLoading(true);
             setError("");
           },
-          onSuccess: () => {
-            setLoading(false);
-          },
           onError: (ctx) => {
             setError(ctx.error.message);
-            setLoading(false);
           },
         },
       );
@@ -59,6 +55,8 @@ export default function RegisterForm() {
       } else if (typeof error == "string") {
         setError(error);
       }
+    } finally {
+      setLoading(false);
     }
   };
 

@@ -37,18 +37,16 @@ export default function LoginForm() {
             setLoading(true);
             setError("");
           },
-          onSuccess: () => {
-            setLoading(false);
-          },
           onError: (ctx) => {
             setError(ctx.error.message);
-            setLoading(false);
           },
         },
       );
     } catch (error) {
       setError("An unexpected error occured.");
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
