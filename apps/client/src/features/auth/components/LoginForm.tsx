@@ -1,6 +1,7 @@
 import { AlertCircleIcon } from "lucide-react";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { authClient } from "../auth-client";
 import { loginSchema, type LoginSchema } from "../schema";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/Alert";
@@ -11,7 +12,6 @@ import {
   FieldLabel,
 } from "@/components/ui/Field";
 import { Spinner } from "@/components/ui/spinner";
-import { zodResolver } from "@hookform/resolvers/zod";
 
 export default function LoginForm() {
   const [error, setError] = useState<string>("");

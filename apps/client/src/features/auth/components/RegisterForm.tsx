@@ -2,11 +2,7 @@ import { AlertCircleIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { authClient } from "../auth-client";
-import ProgressStepper from "./ProgressStepper";
-import { registerSchema, type RegisterSchema } from "../schema";
-import SegmentedControl from "./SegmentedControl";
-import { calculateProgress } from "@/utils/form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/Alert";
 import {
   Field,
@@ -15,7 +11,11 @@ import {
   FieldLabel,
 } from "@/components/ui/Field";
 import { Spinner } from "@/components/ui/spinner";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { calculateProgress } from "@/utils/form";
+import { authClient } from "../auth-client";
+import { registerSchema, type RegisterSchema } from "../schema";
+import ProgressStepper from "./ProgressStepper";
+import SegmentedControl from "./SegmentedControl";
 
 export default function RegisterForm() {
   const [error, setError] = useState<string>("");
@@ -35,7 +35,6 @@ export default function RegisterForm() {
     },
   });
 
-  // eslint-disable-next-line react-hooks/incompatible-library
   const nameWatched = form.watch("name");
   const emailWatched = form.watch("email");
   const passwordWatched = form.watch("password");
@@ -61,12 +60,11 @@ export default function RegisterForm() {
             setLoading(true);
             setError("");
           },
-          onSuccess: async () => {
-            setLoading(false);
-            if (data.userType == "client") {
-              await navigate("/client");
-            } else if (data.userType == "freelancer") {
-              await navigate("/freelancer");
+          onSuccess: () => {
+            if (data.userType === "client") {
+              void navigate("/client");
+            } else if (data.userType === "freelancer") {
+              void navigate("/freelancer");
             }
           },
           onError: (ctx) => {
@@ -141,7 +139,7 @@ export default function RegisterForm() {
                 placeholder="Enter your display name"
                 className="w-full py-2 px-3 md:py-3 md:px-5 rounded-lg bg-background text-white"
               />
-              {fieldState.error && <FieldError error={fieldState.error} />}
+              {fieldState.error && <FieldError errors={[fieldState.error]} />}
             </Field>
           )}
         />
@@ -160,7 +158,7 @@ export default function RegisterForm() {
                 placeholder="you@example.com"
                 className="w-full py-2 px-3 md:py-3 md:px-5 rounded-lg bg-background text-white"
               />
-              {fieldState.error && <FieldError error={fieldState.error} />}
+              {fieldState.error && <FieldError errors={[fieldState.error]} />}
             </Field>
           )}
         />
@@ -179,7 +177,7 @@ export default function RegisterForm() {
                 placeholder="Create a strong password"
                 className="w-full py-2 px-3 md:py-3 md:px-5 rounded-lg bg-background text-white"
               />
-              {fieldState.error && <FieldError error={fieldState.error} />}
+              {fieldState.error && <FieldError errors={[fieldState.error]} />}
             </Field>
           )}
         />
@@ -216,7 +214,7 @@ export default function RegisterForm() {
                   .
                 </FieldLabel>
               </div>
-              {fieldState.error && <FieldError error={fieldState.error} />}
+              {fieldState.error && <FieldError errors={[fieldState.error]} />}
             </Field>
           )}
         />

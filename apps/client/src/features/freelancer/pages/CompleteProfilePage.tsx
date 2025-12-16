@@ -1,19 +1,19 @@
+import { useEffect, useState } from "react";
+import { useForm, Controller } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Field,
   FieldGroup,
   FieldLabel,
   FieldError,
-} from "../../../components/ui/Field";
-import { useForm, Controller } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+} from "@/components/ui/Field";
+import { calculateProgress } from "@/utils/form";
 import {
   freelancerProfileSchema,
   type FreelancerProfileSchema,
 } from "../schema";
-import { calculateProgress } from "../../../utils/form";
-import ProgressStepper from "../../auth/components/ProgressStepper"; // Import the stepper
-import { useEffect, useState } from "react";
+import ProgressStepper from "../../auth/components/ProgressStepper";
 
 const FreelancerProfilePage = () => {
   const navigate = useNavigate();
@@ -92,7 +92,9 @@ const FreelancerProfilePage = () => {
                     placeholder="e.g., Senior Frontend Developer"
                     className="w-full py-2 px-3 rounded-lg bg-background text-white border border-gray-700 focus:ring-accent-gold focus:border-accent-gold"
                   />
-                  {fieldState.error && <FieldError error={fieldState.error} />}
+                  {fieldState.error && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
                 </Field>
               )}
             />
@@ -175,7 +177,9 @@ const FreelancerProfilePage = () => {
                     placeholder="e.g., https://yourportfolio.com"
                     className="w-full py-2 px-3 rounded-lg bg-background text-white border border-gray-700 focus:ring-accent-gold focus:border-accent-gold"
                   />
-                  {fieldState.error && <FieldError error={fieldState.error} />}
+                  {fieldState.error && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
                 </Field>
               )}
             />
@@ -202,7 +206,9 @@ const FreelancerProfilePage = () => {
                       Array.isArray(field.value) ? field.value.join(", ") : ""
                     }
                   />
-                  {fieldState.error && <FieldError error={fieldState.error} />}
+                  {fieldState.error && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
                 </Field>
               )}
             />
@@ -227,7 +233,9 @@ const FreelancerProfilePage = () => {
                   <p className="text-sm text-gray-mid text-right">
                     {field.value?.length ?? 0} / 500
                   </p>
-                  {fieldState.error && <FieldError error={fieldState.error} />}
+                  {fieldState.error && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
                 </Field>
               )}
             />
