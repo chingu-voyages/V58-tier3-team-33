@@ -4,7 +4,7 @@ const origin = ENV.cors.CORS_ORIGIN;
 
 export const corsOptions = {
   origin,
-  methods: ["GET", "POST", "PUT", "PATCH"],
+  methods: ["GET", "POST", "PUT", "PATCH", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
 };
