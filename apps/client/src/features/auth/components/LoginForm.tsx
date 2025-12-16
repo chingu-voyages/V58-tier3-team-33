@@ -43,8 +43,13 @@ export default function LoginForm() {
         },
       );
     } catch (error) {
-      setError("An unexpected error occured.");
       console.error(error);
+
+      if (error instanceof Error) {
+        setError(error.message);
+      } else if (typeof error == "string") {
+        setError(error);
+      }
     } finally {
       setLoading(false);
     }
