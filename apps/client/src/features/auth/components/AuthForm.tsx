@@ -18,7 +18,7 @@ const AuthForm = () => {
               Welcome Back!
             </h2>
 
-            <p className="text-gray-mid text-sm md:text-base">
+            <p className="text-gray-400 text-sm md:text-base">
               Login to access your account.
             </p>
           </>
@@ -28,7 +28,7 @@ const AuthForm = () => {
               Join Worksy
             </h2>
 
-            <p className="text-gray-mid text-sm md:text-base">
+            <p className="text-gray-400 text-sm md:text-base">
               Create your account to get started
             </p>
           </>
@@ -41,21 +41,21 @@ const AuthForm = () => {
 
       <div className="mt-4 text-center text-sm md:text-base">
         {isLogin ? (
-          <p className="text-gray-mid">
+          <p className="text-gray-400">
             Don't have an account?{" "}
             <span
               onClick={toggleForm}
-              className="text-accent-gold font-semibold hover:text-accent-gold transition-colors duration-200 cursor-pointer"
+              className="text-accent-gold font-semibold cursor-pointer focus-visible:outline-2 focus-visible:outline-accent-gold hover:underline"
             >
               Register
             </span>
           </p>
         ) : (
-          <p className="text-gray-mid">
+          <p className="text-gray-400">
             Already have an account?{" "}
             <span
               onClick={toggleForm}
-              className="text-accent-gold font-semibold hover:text-accent-gold transition-colors duration-200 cursor-pointer"
+              className="text-accent-gold font-semibold cursor-pointer focus-visible:outline-2 focus-visible:outline-accent-gold hover:underline"
             >
               Login
             </span>

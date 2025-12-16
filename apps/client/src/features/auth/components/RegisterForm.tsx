@@ -119,7 +119,7 @@ export default function RegisterForm() {
         )}
 
         <div className="border-[0.5px] bg-accent-gold/5 border-accent-gold/30 rounded-xl my-4 md:my-8">
-          <p className="text-accent-gold border-accent-gold p-3 md:p-4 text-sm md:text-base">
+          <p className="text-accent-gold p-3 md:p-4 text-sm md:text-base">
             Want to be both? Switch modes anytime after sign up - just start
             with what's most important to you right now
           </p>
@@ -137,7 +137,7 @@ export default function RegisterForm() {
                 aria-invalid={fieldState.invalid}
                 type="text"
                 placeholder="Enter your display name"
-                className="w-full py-2 px-3 md:py-3 md:px-5 rounded-lg bg-background text-white"
+                className="w-full py-2 px-3 md:py-3 md:px-5 rounded-lg bg-background text-white focus-visible:outline-2 focus-visible:outline-accent-gold"
               />
               {fieldState.error && <FieldError errors={[fieldState.error]} />}
             </Field>
@@ -156,7 +156,7 @@ export default function RegisterForm() {
                 aria-invalid={fieldState.invalid}
                 type="email"
                 placeholder="you@example.com"
-                className="w-full py-2 px-3 md:py-3 md:px-5 rounded-lg bg-background text-white"
+                className="w-full py-2 px-3 md:py-3 md:px-5 rounded-lg bg-background text-white focus-visible:outline-2 focus-visible:outline-accent-gold"
               />
               {fieldState.error && <FieldError errors={[fieldState.error]} />}
             </Field>
@@ -175,7 +175,7 @@ export default function RegisterForm() {
                 aria-invalid={fieldState.invalid}
                 type="password"
                 placeholder="Create a strong password"
-                className="w-full py-2 px-3 md:py-3 md:px-5 rounded-lg bg-background text-white"
+                className="w-full py-2 px-3 md:py-3 md:px-5 rounded-lg bg-background text-white focus-visible:outline-2 focus-visible:outline-accent-gold"
               />
               {fieldState.error && <FieldError errors={[fieldState.error]} />}
             </Field>
@@ -194,20 +194,20 @@ export default function RegisterForm() {
                   aria-invalid={fieldState.invalid}
                   type="checkbox"
                   checked={value}
-                  className="rounded bg-background text-accborder-accent-gold"
+                  className="rounded bg-background focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-accent-gold"
                 />
                 <FieldLabel htmlFor={fieldProps.name}>
                   I agree to the{" "}
                   <a
                     href="#"
-                    className="text-accborder-accent-gold hover:underline"
+                    className="text-accent-gold font-semibold cursor-pointer focus-visible:outline-2 focus-visible:outline-accent-gold hover:underline"
                   >
                     Terms of Service
                   </a>{" "}
                   and{" "}
                   <a
                     href="#"
-                    className="text-accborder-accent-gold hover:underline"
+                    className="text-accent-gold font-semibold cursor-pointer focus-visible:outline-2 focus-visible:outline-accent-gold hover:underline"
                   >
                     Privacy Policy
                   </a>

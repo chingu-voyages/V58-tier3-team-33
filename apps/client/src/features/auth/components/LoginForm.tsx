@@ -73,7 +73,7 @@ export default function LoginForm() {
                 aria-invalid={fieldState.invalid}
                 type="email"
                 placeholder="Enter your email address"
-                className="w-full rounded-lg bg-background p-3 text-white"
+                className="w-full py-2 px-3 md:py-3 md:px-5 rounded-lg bg-background text-white focus-visible:outline-2 focus-visible:outline-accent-gold"
               />
               {fieldState.error && <FieldError errors={[fieldState.error]} />}
             </Field>
@@ -91,7 +91,7 @@ export default function LoginForm() {
                 aria-invalid={fieldState.invalid}
                 type="password"
                 placeholder="Enter your password"
-                className="w-full rounded-lg bg-background p-3 text-white"
+                className="w-full py-2 px-3 md:py-3 md:px-5 rounded-lg bg-background text-white focus-visible:outline-2 focus-visible:outline-accent-gold"
               />
               {fieldState.error && <FieldError errors={[fieldState.error]} />}
             </Field>
@@ -109,7 +109,7 @@ export default function LoginForm() {
 
       <button
         type="submit"
-        className="w-full rounded bg-gold p-3 pt-2 font-semibold text-black transition-colors duration-200 hover:bg-amber-500 md:text-base"
+        className="w-full bg-accent-gold text-background p-2 rounded text-base md:text-base"
         disabled={isLoading}
       >
         {isLoading ? (
