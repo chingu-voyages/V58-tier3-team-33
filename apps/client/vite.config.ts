@@ -9,7 +9,6 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
-      "zod/v4/core": "zod",
     },
   },
   server: {
