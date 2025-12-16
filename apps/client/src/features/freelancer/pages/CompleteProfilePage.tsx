@@ -70,7 +70,7 @@ const FreelancerProfilePage = () => {
           step2Label="Complete Profile"
         />
         <h2 className="text-2xl font-bold mt-8">Tell us about yourself</h2>
-        <p className="text-start text-gray-mid mb-8">
+        <p className="text-start text-gray-400 mb-8">
           Help clients understand your skills and experience. You can always
           update this later.
         </p>
@@ -90,7 +90,7 @@ const FreelancerProfilePage = () => {
                     id={field.name}
                     aria-invalid={fieldState.invalid}
                     placeholder="e.g., Senior Frontend Developer"
-                    className="w-full py-2 px-3 rounded-lg bg-background text-white border border-gray-700 focus:ring-accent-gold focus:border-accent-gold"
+                    className="w-full py-2 px-3 md:py-3 md:px-5 rounded-lg bg-background text-white focus-visible:outline-2 focus-visible:outline-accent-gold border border-gray-700"
                   />
                   {fieldState.error && (
                     <FieldError errors={[fieldState.error]} />
@@ -148,7 +148,7 @@ const FreelancerProfilePage = () => {
                           <h3 className="font-semibold text-gray-light">
                             {level.title}
                           </h3>
-                          <p className="text-sm text-gray-mid">
+                          <p className="text-sm text-gray-400">
                             {level.description}
                           </p>
                         </div>
@@ -167,7 +167,7 @@ const FreelancerProfilePage = () => {
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor={field.name}>
                     Portfolio URL{" "}
-                    <span className="text-gray-mid">(Optional)</span>
+                    <span className="text-gray-400">(Optional)</span>
                   </FieldLabel>
                   <input
                     {...field}
@@ -175,7 +175,7 @@ const FreelancerProfilePage = () => {
                     aria-invalid={fieldState.invalid}
                     type="url"
                     placeholder="e.g., https://yourportfolio.com"
-                    className="w-full py-2 px-3 rounded-lg bg-background text-white border border-gray-700 focus:ring-accent-gold focus:border-accent-gold"
+                    className="w-full py-2 px-3 md:py-3 md:px-5 rounded-lg bg-background text-white focus-visible:outline-2 focus-visible:outline-accent-gold border border-gray-700"
                   />
                   {fieldState.error && (
                     <FieldError errors={[fieldState.error]} />
@@ -196,7 +196,7 @@ const FreelancerProfilePage = () => {
                     id={field.name}
                     aria-invalid={fieldState.invalid}
                     placeholder="e.g., Figma, React, Branding, User Research"
-                    className="w-full py-2 px-3 rounded-lg bg-background text-white border border-gray-700 focus:ring-accent-gold focus:border-accent-gold"
+                    className="w-full py-2 px-3 md:py-3 md:px-5 rounded-lg bg-background text-white focus-visible:outline-2 focus-visible:outline-accent-gold border border-gray-700"
                     onChange={(e) =>
                       field.onChange(
                         e.target.value.split(",").map((s) => s.trim()),
@@ -220,17 +220,18 @@ const FreelancerProfilePage = () => {
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor={field.name}>
-                    Brief Bio <span className="text-gray-mid">(Optional)</span>
+                    Services description{" "}
+                    <span className="text-gray-400">(Optional)</span>
                   </FieldLabel>
                   <textarea
                     {...field}
                     id={field.name}
                     aria-invalid={fieldState.invalid}
-                    placeholder="Tell clients a bit about yourself and what you do best..."
+                    placeholder="Tell clients a bit about what you offer and your rates..."
                     rows={4}
-                    className="w-full py-2 px-3 rounded-lg bg-background text-white border border-gray-700 focus:ring-accent-gold focus:border-accent-gold"
+                    className="w-full py-2 px-3 md:py-3 md:px-5 rounded-lg bg-background text-white focus-visible:outline-2 focus-visible:outline-accent-gold border border-gray-700"
                   />
-                  <p className="text-sm text-gray-mid text-right">
+                  <p className="text-sm text-gray-400 text-right">
                     {field.value?.length ?? 0} / 500
                   </p>
                   {fieldState.error && (
@@ -244,7 +245,7 @@ const FreelancerProfilePage = () => {
           <div className="flex gap-4 my-8">
             <button
               type="button" // Changed to type='button' to prevent form submission
-              className="outline-1 outline-gray-mid text-gray-light px-3 py-1 rounded-lg text-sm sm:w-auto"
+              className="py-2 px-3 md:py-3 md:px-5 rounded-lg text-gray-light outline-2 outline-gray-mid sm:w-auto"
               // onClick={handleCancelClick}
             >
               Skip for now
