@@ -18,7 +18,7 @@ const SegmentedControl = ({
   return (
     <div className="relative flex w-full bg-background rounded-xl p-1">
       <div
-        className="absolute top-1 left-1 h-[calc(100%-0.5rem)] bg-gold rounded-md transition-transform duration-300 ease-in-out"
+        className="absolute top-1 left-1 h-[calc(100%-0.5rem)] bg-accent-gold rounded-md text-background transition-transform duration-300 ease-in-out"
         style={{
           width: `calc(100% / ${options.length})`,
           transform: `translateX(calc(100% * ${selectedIndex}))`,
@@ -37,7 +37,7 @@ const SegmentedControl = ({
           />
           <label
             htmlFor={option.value}
-            className={`relative z-10 flex-1 p-2 text-center rounded-md cursor-pointer font-semibold transition-colors duration-300 text-sm md:text-base ${selected === option.value ? "text-black" : "text-gold"}`}
+            className={`relative z-10 flex-1 p-2 text-center rounded-md cursor-pointer font-semibold transition-colors duration-300 text-sm md:text-base ${selected === option.value ? "text-black" : "text-accent-gold"}`}
           >
             {option.label}
           </label>

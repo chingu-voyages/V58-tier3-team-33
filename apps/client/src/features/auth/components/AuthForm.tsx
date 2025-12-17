@@ -14,7 +14,7 @@ const AuthForm = () => {
       <div className="space-y-2 mb-4 md:mb-8 text-center md:text-left">
         {isLogin ? (
           <>
-            <h2 className="text-white font-bold text-xl md:text-4xl">
+            <h2 className="text-gray-light font-bold text-xl md:text-4xl">
               Welcome Back!
             </h2>
 
@@ -24,7 +24,7 @@ const AuthForm = () => {
           </>
         ) : (
           <>
-            <h2 className="text-white font-bold text-xl md:text-4xl">
+            <h2 className="text-gray-light font-bold text-xl md:text-4xl">
               Join Worksy
             </h2>
 
@@ -45,7 +45,7 @@ const AuthForm = () => {
             Don't have an account?{" "}
             <span
               onClick={toggleForm}
-              className="text-gold font-semibold hover:text-amber-600 transition-colors duration-200 cursor-pointer"
+              className="text-accent-gold font-semibold cursor-pointer focus-visible:outline-2 focus-visible:outline-accent-gold hover:underline"
             >
               Register
             </span>
@@ -55,7 +55,7 @@ const AuthForm = () => {
             Already have an account?{" "}
             <span
               onClick={toggleForm}
-              className="text-gold font-semibold hover:text-amber-600 transition-colors duration-200 cursor-pointer"
+              className="text-accent-gold font-semibold cursor-pointer focus-visible:outline-2 focus-visible:outline-accent-gold hover:underline"
             >
               Login
             </span>

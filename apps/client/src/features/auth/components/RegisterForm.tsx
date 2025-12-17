@@ -1,9 +1,8 @@
 import { AlertCircleIcon } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { authClient } from "../auth-client";
-import { registerSchema, type RegisterSchema } from "../schema";
-import SegmentedControl from "./SegmentedControl";
+import { useNavigate } from "react-router-dom";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/Alert";
 import {
   Field,
@@ -12,14 +11,21 @@ import {
   FieldLabel,
 } from "@/components/ui/Field";
 import { Spinner } from "@/components/ui/spinner";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { calculateProgress } from "@/utils/form";
+import { authClient } from "../auth-client";
+import { registerSchema, type RegisterSchema } from "../schema";
+import ProgressStepper from "./ProgressStepper";
+import SegmentedControl from "./SegmentedControl";
 
 export default function RegisterForm() {
   const [error, setError] = useState<string>("");
   const [isLoading, setLoading] = useState<boolean>(false);
+  const [progress, setProgress] = useState(0);
+  const navigate = useNavigate();
 
   const form = useForm<RegisterSchema>({
     resolver: zodResolver(registerSchema),
+    mode: "onTouched",
     defaultValues: {
       name: "",
       email: "",
@@ -28,6 +34,18 @@ export default function RegisterForm() {
       termsAgreement: false,
     },
   });
+
+  const nameWatched = form.watch("name");
+  const emailWatched = form.watch("email");
+  const passwordWatched = form.watch("password");
+  const termsAgreementWatched = form.watch("termsAgreement");
+  const userTypeValue = form.watch("userType");
+
+  useEffect(() => {
+    const values = form.getValues();
+    const newProgress = calculateProgress(values, registerSchema, ["userType"]);
+    setProgress(newProgress);
+  }, [form, nameWatched, emailWatched, passwordWatched, termsAgreementWatched]);
 
   const onSubmit = async (data: RegisterSchema) => {
     try {
@@ -41,6 +59,13 @@ export default function RegisterForm() {
           onRequest: () => {
             setLoading(true);
             setError("");
+          },
+          onSuccess: () => {
+            if (data.userType === "client") {
+              void navigate("/client");
+            } else if (data.userType === "freelancer") {
+              void navigate("/freelancer");
+            }
           },
           onError: (ctx) => {
             setError(ctx.error.message);
@@ -83,8 +108,18 @@ export default function RegisterForm() {
           )}
         />
 
-        <div className="border-[0.5px] border-gold/30 bg-gold/10 rounded-xl my-4 md:my-8">
-          <p className="text-gold p-3 md:p-4 text-sm md:text-base">
+        {userTypeValue === "freelancer" && (
+          <ProgressStepper
+            progress1={progress}
+            progress2={0}
+            currentStep={1}
+            step1Label="Create Account"
+            step2Label="Complete Profile"
+          />
+        )}
+
+        <div className="border-[0.5px] bg-accent-gold/5 border-accent-gold/30 rounded-xl my-4 md:my-8">
+          <p className="text-accent-gold p-3 md:p-4 text-sm md:text-base">
             Want to be both? Switch modes anytime after sign up - just start
             with what's most important to you right now
           </p>
@@ -102,7 +137,7 @@ export default function RegisterForm() {
                 aria-invalid={fieldState.invalid}
                 type="text"
                 placeholder="Enter your display name"
-                className="w-full py-2 px-3 md:py-3 md:px-5 rounded-lg bg-background text-white"
+                className="w-full py-2 px-3 md:py-3 md:px-5 rounded-lg bg-background text-white focus-visible:outline-2 focus-visible:outline-accent-gold"
               />
               {fieldState.error && <FieldError errors={[fieldState.error]} />}
             </Field>
@@ -121,7 +156,7 @@ export default function RegisterForm() {
                 aria-invalid={fieldState.invalid}
                 type="email"
                 placeholder="you@example.com"
-                className="w-full py-2 px-3 md:py-3 md:px-5 rounded-lg bg-background text-white"
+                className="w-full py-2 px-3 md:py-3 md:px-5 rounded-lg bg-background text-white focus-visible:outline-2 focus-visible:outline-accent-gold"
               />
               {fieldState.error && <FieldError errors={[fieldState.error]} />}
             </Field>
@@ -140,7 +175,7 @@ export default function RegisterForm() {
                 aria-invalid={fieldState.invalid}
                 type="password"
                 placeholder="Create a strong password"
-                className="w-full py-2 px-3 md:py-3 md:px-5 rounded-lg bg-background text-white"
+                className="w-full py-2 px-3 md:py-3 md:px-5 rounded-lg bg-background text-white focus-visible:outline-2 focus-visible:outline-accent-gold"
               />
               {fieldState.error && <FieldError errors={[fieldState.error]} />}
             </Field>
@@ -159,15 +194,21 @@ export default function RegisterForm() {
                   aria-invalid={fieldState.invalid}
                   type="checkbox"
                   checked={value}
-                  className="rounded bg-background text-gold"
+                  className="rounded bg-background focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-accent-gold"
                 />
                 <FieldLabel htmlFor={fieldProps.name}>
                   I agree to the{" "}
-                  <a href="#" className="text-gold hover:underline">
+                  <a
+                    href="#"
+                    className="text-accent-gold font-semibold cursor-pointer focus-visible:outline-2 focus-visible:outline-accent-gold hover:underline"
+                  >
                     Terms of Service
                   </a>{" "}
                   and{" "}
-                  <a href="#" className="text-gold hover:underline">
+                  <a
+                    href="#"
+                    className="text-accent-gold font-semibold cursor-pointer focus-visible:outline-2 focus-visible:outline-accent-gold hover:underline"
+                  >
                     Privacy Policy
                   </a>
                   .
@@ -189,7 +230,7 @@ export default function RegisterForm() {
 
       <button
         type="submit"
-        className="text-center w-full bg-gold text-black p-2 rounded text-base md:text-base"
+        className="w-full bg-accent-gold text-background p-2 rounded text-base md:text-base"
         disabled={isLoading}
       >
         {isLoading ? (

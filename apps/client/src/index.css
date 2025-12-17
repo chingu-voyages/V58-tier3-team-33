@@ -13,7 +13,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #030405;
+  background-color: #0a0a0a;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -54,9 +54,9 @@
 
 body {
   margin: 0;
-  display: flex;
   min-width: 320px;
-  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: hidden;
 }
 
 h1 {
@@ -174,6 +174,19 @@ button:focus-visible {
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+}
+
+@theme {
+  /* === Core Backgrounds === */
+  --color-background: #0a0a0a; /* Deepest layer — your true dark-mode canvas */
+  --color-background-alt: #1a1a1a; /* Slightly lighter for card surfaces, sections */
+
+  /* === Grays / Neutrals === */
+  --color-gray-mid: #656565; /* Midtone gray for icons, muted text */
+  --color-gray-light: #cbcbcb; /* Light gray for borders + subtle highlights */
+
+  /* === Accents === */
+  --color-accent-gold: #ffd800; /* Punchy neon-gold attention grabber */
 }
 
 @layer base {
