@@ -75,10 +75,13 @@ export async function up(db: Kysely<unknown>) {
 }
 
 export async function down(db: Kysely<unknown>) {
-  await db.schema.dropIndex("applications_user_id_job_id_idx").execute();
-  await db.schema.dropIndex("applications_job_id_idx").execute();
-  await db.schema.dropIndex("applications_user_id_idx").execute();
-  await db.schema.dropIndex("jobs_job_slug_idx").execute();
+  await db.schema
+    .dropIndex("applications_user_id_job_id_idx")
+    .ifExists()
+    .execute();
+  await db.schema.dropIndex("applications_job_id_idx").ifExists().execute();
+  await db.schema.dropIndex("applications_user_id_idx").ifExists().execute();
+  await db.schema.dropIndex("jobs_job_slug_idx").ifExists().execute();
 
   await db.schema.dropTable("applications").ifExists().execute();
   await db.schema.dropTable("jobs").ifExists().execute();

@@ -7,7 +7,7 @@ export const ENV = {
   },
   server: {
     ORIGIN: getEnvOrPanic("ORIGIN"),
-    PORT: getEnvOrPanic("PORT"),
+    PORT: getEnvOrPanic("PORT", true),
   },
   auth: {
     PASSWORD_PEPPER: getEnvOrPanic("PASSWORD_PEPPER"),
@@ -17,8 +17,8 @@ export const ENV = {
 // TODO: can replace with zod validation
 function getEnvOrPanic(key: string, allowEmptyString = false) {
   if (
-    !Object.hasOwn(process.env, key) ||
-    (!allowEmptyString && !process.env[key])
+    !allowEmptyString &&
+    (!Object.hasOwn(process.env, key) || !process.env[key])
   ) {
     throw new Error(`> ${key} not set, check your env vars`, {
       cause: { [key]: process.env[key] },

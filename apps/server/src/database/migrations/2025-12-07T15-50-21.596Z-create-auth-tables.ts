@@ -89,9 +89,9 @@ export async function up({ schema }: Kysely<unknown>) {
 }
 
 export async function down({ schema }: Kysely<unknown>) {
-  await schema.dropIndex("verifications_identifier_idx").execute();
-  await schema.dropIndex("accounts_user_id_idx").execute();
-  await schema.dropIndex("sessions_user_id_idx").execute();
+  await schema.dropIndex("verifications_identifier_idx").ifExists().execute();
+  await schema.dropIndex("accounts_user_id_idx").ifExists().execute();
+  await schema.dropIndex("sessions_user_id_idx").ifExists().execute();
 
   await schema.dropTable("verifications").ifExists().execute();
   await schema.dropTable("accounts").ifExists().execute();
